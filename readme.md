@@ -2,6 +2,10 @@
 
 _Éste repositorio se ha creado para cargar el proyecto de JavaScript para la comisión #63335 de Coderhouse._
 
+## Contenido
+
+_El código JavaScript inicia un simulador de presupuesto personal mensual. Solicita el monto del presupuesto y luego resta los gastos. El usuario puede exceder en gastos el monto del presupuesto. El simulador solicita información al usuario a través de prompts._
+
 ## Autor
 
 * **Edgar Alfonso Padrón Centeno** - *Desarrollador* - [funkeducation](https://github.com/funkeducation)
