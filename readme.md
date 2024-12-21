@@ -10,12 +10,13 @@ _El código JavaScript inicia un simulador de presupuesto personal mensual. Soli
 
 * **Edgar Alfonso Padrón Centeno** - *Desarrollador* - [funkeducation](https://github.com/funkeducation)
 
-## Requerimientos 1era Pre-Entrega
+## Requerimientos 2da Pre-Entrega
 
-* HTML Básico.
-* Algoritmo con un condicional.
-* Algoritmo utilizando un ciclo.
-* Simulador interactivo.
+* Variables necesarias: Sí, están presentes y bien definidas.
+* Funciones esenciales: Sí, el código cubre las funciones principales del flujo de gestión de presupuesto.
+* Objetos JS: Están presentes en forma de objetos simples dentro de listaGastos.
+* Arrays: El array listaGastos está bien implementado.
+* Métodos de búsqueda y filtrado: No están implementados, pero podrían añadirse si se requiere buscar o filtrar los gastos.
 
 ## Dirección del Sitio Web
 

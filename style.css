@@ -1,0 +1,213 @@
+body {
+    margin: 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start; /* Alinea el contenido al principio */
+    height: 100vh;
+    background-color: #f4f4f9;
+    font-family: Arial, sans-serif;
+}
+
+#contenedor {
+    width: 100%;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin: 20px auto; /* Márgenes de 20px en la parte superior e inferior */
+    margin-bottom: 0px;
+    display: flex;
+    flex-direction: column; /* Coloca los elementos de arriba hacia abajo */
+    justify-content: flex-start; /* Alinea los elementos al principio */
+}
+
+#logo {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+#logo img {
+    max-width: 800px;
+    height: auto;
+}
+
+h1, h2 {
+    text-align: center;
+
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #f4f4f4;
+}
+
+#alerta {
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* Estilo común para todos los botones */
+button, .form-gasto button, .form-presupuesto button, #botonReiniciar #botonFinalizar {
+    padding: 12px 20px; /* Asegura que los botones tengan suficiente espacio interno */
+    color: white;
+    border: none;
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+    text-align: center; /* Centra el texto dentro del botón */
+    background-color: #4372f5; /* Color azul */
+}
+
+button:hover, .form-gasto button:hover, .form-presupuesto button:hover {
+    background-color: #648af1; /* Azul claro al pasar el mouse */
+}
+
+/* Estilo común para todos los inputs */
+input[type="text"], input[type="number"], input[type="email"], input[type="password"], input[type="tel"] {
+    width: 100%; /* Hace que el campo de entrada ocupe todo el ancho disponible */
+    padding: 12px; /* Asegura que los inputs tengan suficiente espacio interno */
+    font-size: 1rem;
+    margin-bottom: 10px; /* Espacio entre los campos de entrada */
+    border: 1px solid #ccc; /* Borde gris claro */
+    border-radius: 5px; /* Bordes redondeados */
+    background-color: #f9f9f9; /* Fondo claro para los campos */
+}
+
+input[type="number"] {
+    -moz-appearance: textfield; /* Firefox */
+    -webkit-appearance: none; /* Chrome, Safari, Edge */
+    appearance: none; /* Asegura compatibilidad */
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none; /* Chrome, Safari, Edge */
+    margin: 0; /* Elimina el margen */
+}
+
+input:focus {
+    outline: none; /* Elimina el contorno cuando se hace clic */
+    border-color: #4CAF50; /* Cambia el color del borde al verde cuando está enfocado */
+    background-color: #fff; /* Cambia el fondo a blanco cuando está enfocado */
+}
+
+label {
+    font-size: 1rem;
+    margin-bottom: 5px;
+    text-align: left;
+}
+
+/* Estilo para las secciones y alertas */
+#alerta {
+    width: 50%;
+    color: red;
+    display: none;
+    text-align: center;
+    padding-top: 40px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Botones de reiniciar y finalizar */
+.botones-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin: 0 auto; /* Esto centra el contenedor horizontalmente */
+    margin-top: 35px;
+}
+
+/* Aseguramos que el formulario se muestre como columna */
+.form-gasto {
+    display: flex;
+    flex-direction: column; /* Los elementos se colocan en una columna */
+    gap: 10px; /* Espacio entre los elementos */
+    max-width: 400px; /* Limita el ancho del formulario */
+    margin: 0; /* Elimina el margen automático */
+    align-items: flex-start; /* Alinea los elementos hacia la izquierda */
+}
+
+.form-gasto label {
+    font-size: 1rem;
+    margin-bottom: 5px; /* Espacio entre la etiqueta y el campo */
+    text-align: left; /* Asegura que el texto esté alineado a la izquierda */
+}
+
+.form-gasto input {
+    padding: 8px;
+    font-size: 1rem;
+    margin-bottom: 10px; /* Espacio entre los campos de entrada */
+    width: 100%; /* Hace que los campos de entrada se extiendan al ancho del formulario */
+}
+
+.form-gasto button {
+    padding: 10px;
+    font-size: 1rem;
+    background-color: #4CAF50; /* Verde */
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%; /* Hace que el botón ocupe todo el ancho disponible */
+}
+
+.form-gasto button:hover {
+    background-color: #45a049; /* Verde oscuro al pasar el mouse */
+}
+
+/* Estilo para el formulario de presupuesto */
+.form-presupuesto {
+    display: flex;
+    flex-direction: column; /* Alinea los elementos en columna */
+    gap: 10px; /* Espacio entre los elementos */
+    max-width: 400px; /* Limita el ancho del formulario */
+    margin: 0; /* Elimina márgenes automáticos */
+    align-items: flex-start; /* Alinea los elementos a la izquierda */
+}
+
+.form-presupuesto label {
+    font-size: 1rem;
+    margin-bottom: 5px; /* Espacio entre la etiqueta y el campo */
+    text-align: left; /* Alinea el texto de la etiqueta a la izquierda */
+}
+
+.form-presupuesto input {
+    padding: 8px;
+    font-size: 1rem;
+    margin-bottom: 10px; /* Espacio entre los campos de entrada */
+    width: 100%; /* Hace que el campo de entrada ocupe todo el ancho del formulario */
+}
+
+.form-presupuesto button {
+    padding: 10px;
+    font-size: 1rem;
+    background-color: #4CAF50; /* Verde */
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 220px; /* Hace que el botón ocupe todo el ancho disponible */
+}
+
+.form-presupuesto button:hover {
+    background-color: #45a049; /* Verde oscuro al pasar el mouse */
+}

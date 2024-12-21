@@ -4,20 +4,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proyecto JavaScript de Edgar Padrón</title>
+    <title>Gestión de Presupuesto</title>
+    <link rel='stylesheet' type='text/css' media='screen' href='style.css'>
 </head>
 
 <body>
-    <img style="display: block; 
-                width: 600px; 
-                margin-left: auto; 
-                margin-right: auto;
-                padding-bottom: 20px;" src="images/logo_top.png">
-    <div style="display: block; 
-                width: 600px; 
-                margin-left: auto; 
-                margin-right: auto;
-                border-style: dotted;" id="mensajes"></div>
+    <div id="contenedorPrincipal" style="display: flex; flex-direction: column; gap: 20px; max-width: 80%; margin: 0 auto;">
+
+        <div id="contenedor">
+            <div id="logo">
+                <img src="images/logo_top.png" alt="Edgar Padrón">
+            </div>
+
+            <h1>Gestión de Presupuesto</h1>
+
+            <h2>Información del Presupuesto</h2>
+            <form id="formularioPresupuesto" class="form-presupuesto">
+                <label for="presupuesto">Ingresa tu presupuesto inicial:</label>
+                <input type="number" id="presupuesto" required>
+                <button type="submit">Establecer Presupuesto</button>
+            </form>
+
+            <div id="infoPresupuesto" style="display: none;">
+                <p id="presupuestoInicial">Presupuesto inicial: $0.00</p>
+                <p>Presupuesto restante: <span id="presupuestoRestante">$0.00</span></p>
+            </div>
+
+            <form id="formularioGasto" class="form-gasto" style="display: none;">
+                <label for="descripcionGasto">Descripción del gasto:</label>
+                <input type="text" id="descripcionGasto" required>
+                <label for="gasto">Monto del gasto:</label>
+                <input type="number" id="gasto" required>
+                <button type="submit">Registrar Gasto</button>
+            </form>
+
+            <p id="alerta"></p>
+            <div class="botones-container">
+                <button id="botonReiniciar">Reiniciar Presupuesto</button>
+                <button id="botonFinalizar">Finalizar Ingreso de Gastos</button>
+            </div>
+        </div>
+
+        <div id="contenedor" style="margin: 0px auto;">
+            <h2>Listado de Gastos</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Descripción</th>
+                        <th>Monto</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaGastos"></tbody>
+            </table>
+        </div>
+
+        <div id="espaciador" style="height: 20px;"></div>
+
+    </div>
+
     <script src="script.js"></script>
 </body>
 
