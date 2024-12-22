@@ -41,9 +41,9 @@ Este sistema permite que el usuario gestione su presupuesto, registre sus gastos
 
 * **Variables necesarias:** Las variables cubren lo necesario para manejar el presupuesto y los gastos.
 * **Funciones esenciales:** Las funciones cubren adecuadamente los requerimientos para la interacción con el usuario (presupuesto y gastos).
-* **Objetos JS:** Están presentes en forma de objetos simples dentro de listaGastos.
-* **Arrays:** El uso del array listaGastos es adecuado, y se aprovecha para almacenar y filtrar los gastos.
-* **Métodos de búsqueda y filtrado:** El filtrado de gastos está bien implementado utilizando los métodos adecuados (filter()), y muestra los resultados correctamente.
+* **Objetos JS:** Están presentes en forma de objetos simples dentro de **listaGastos**.
+* **Arrays:** El uso del array **listaGastos** es adecuado, y se aprovecha para almacenar y filtrar los gastos.
+* **Métodos de búsqueda y filtrado:** El filtrado de gastos está bien implementado utilizando los métodos adecuados **(filter())**, y muestra los resultados correctamente.
 
 ## Dirección del Sitio Web
 
