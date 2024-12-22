@@ -36,6 +36,7 @@ body {
 }
 
 #logo img {
+    margin-top: 20px;
     width: 100%;
     height: auto;
 }
@@ -217,6 +218,47 @@ label {
 
 #buscarDescripcion {
     max-width: 100%;
+}
+
+table {
+    width: 100%; /* Asegura que la tabla ocupe todo el ancho disponible */
+    border-collapse: collapse; /* Elimina espacios entre bordes */
+}
+
+table th, table td {
+    text-align: left; /* Alinea el texto a la izquierda */
+    padding: 8px; /* Añade algo de espacio interno */
+    border: 1px solid #ccc; /* Añade un borde a las celdas */
+}
+
+table th:nth-child(1), 
+table td:nth-child(1), 
+table th:nth-child(2), 
+table td:nth-child(2) {
+    width: 40%; /* Cada columna "Descripción" y "Monto" ocupa el 40% */
+}
+
+table th:nth-child(3), 
+table td:nth-child(3) {
+    width: 15%; /* La columna "Acciones" ocupa el 20% */
+}
+
+/* Estilo base para los botones .btn-eliminar */
+.btn-eliminar {
+    background-color: white; /* Fondo blanco */
+    color: rgb(124, 124, 124); /* Texto negro */
+    border: 1px solid #ccc; /* Borde gris claro */
+    padding: 5px 10px; /* Espaciado interno */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer; /* Cambia el cursor a mano al pasar */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Suaviza la transición */
+}
+
+/* Estilo para hover en los botones .btn-eliminar */
+.btn-eliminar:hover {
+    background-color: #f0f0f0; /* Fondo gris claro */
+    color: black; /* Texto negro */
+    border-color: #aaa; /* Borde más oscuro */
 }
 
 /* Diseño responsivo Contenedor Principal*/

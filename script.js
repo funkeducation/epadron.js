@@ -24,6 +24,9 @@ window.onload = function () {
     }
     // Actualiza el título de la página con el nombre del usuario
     document.title = `Gestión de Presupuesto - ${nombreUsuario}`;
+    // Actualiza el contenido del <h1>
+    const tituloPrincipal = document.querySelector('h1'); // Selecciona el título principal
+    tituloPrincipal.textContent = `Gestión de Presupuesto de ${nombreUsuario}`;
 };
 
 // Mostrar mensajes en la tabla de gastos
@@ -122,13 +125,13 @@ botonReiniciar.addEventListener('click', function () {
 // Función para filtrar gastos por descripción
 function filtrarGastosPorDescripcion(termino) {
     const tablaResultadosFiltrados = document.getElementById('tablaResultadosFiltrados').getElementsByTagName('tbody')[0];
-    
+
     // Filtra los gastos que contienen el término de búsqueda en la descripción (ignorando mayúsculas/minúsculas)
     const resultados = listaGastos.filter(gasto => gasto.descripcion.toLowerCase().includes(termino.toLowerCase()));
-    
+
     // Limpiar la tabla de resultados filtrados
     tablaResultadosFiltrados.innerHTML = '';
-    
+
     // Si no hay resultados, muestra un mensaje
     if (resultados.length === 0) {
         const fila = tablaResultadosFiltrados.insertRow();
@@ -147,13 +150,13 @@ function filtrarGastosPorDescripcion(termino) {
 // Función para filtrar gastos por monto
 function filtrarGastosPorMonto(minimo, maximo) {
     const tablaResultadosFiltrados = document.getElementById('tablaResultadosFiltrados').getElementsByTagName('tbody')[0];
-    
+
     // Filtra los gastos que estén dentro del rango de monto especificado
     const resultados = listaGastos.filter(gasto => gasto.monto >= minimo && gasto.monto <= maximo);
-    
+
     // Limpiar la tabla de resultados filtrados
     tablaResultadosFiltrados.innerHTML = '';
-    
+
     // Si no hay resultados, muestra un mensaje
     if (resultados.length === 0) {
         const fila = tablaResultadosFiltrados.insertRow();
@@ -173,3 +176,42 @@ function limpiarResultadosFiltrados() {
     const tablaResultadosFiltrados = document.getElementById('tablaResultadosFiltrados').getElementsByTagName('tbody')[0];
     tablaResultadosFiltrados.innerHTML = ''; // Limpia la tabla de resultados filtrados
 }
+
+// Mostrar mensajes en la tabla de gastos con botón de eliminar
+function mostrarMensajeEnTabla(descripcion, monto) {
+    const fila = document.createElement('tr'); // Crea una fila de tabla
+    fila.innerHTML = `
+        <td>${descripcion}</td>
+        <td>$${monto.toFixed(2)}</td>
+        <td><button class="btn-eliminar">Eliminar</button></td>
+    `;
+
+    // Añade un evento al botón de eliminar
+    fila.querySelector('.btn-eliminar').addEventListener('click', function () {
+        // Encuentra el índice del gasto en la listaGastos
+        const index = listaGastos.findIndex(gasto => gasto.descripcion === descripcion && gasto.monto === monto);
+
+        if (index !== -1) {
+            listaGastos.splice(index, 1); // Elimina el gasto de la lista
+            gastosTotales -= monto; // Resta el gasto al total de gastos
+            presupuestoRestante += monto; // Añade el gasto al presupuesto restante
+            presupuestoRestanteEl.textContent = `$${presupuestoRestante.toFixed(2)}`; // Actualiza la interfaz
+        }
+
+        fila.remove(); // Elimina la fila de la tabla
+    });
+
+    tablaGastos.appendChild(fila); // Añade la fila a la tabla de gastos
+}
+
+// Botón para limpiar todos los gastos
+const botonLimpiar = document.getElementById('botonLimpiar');
+
+botonLimpiar.addEventListener('click', function () {
+    listaGastos = []; // Limpia la lista de gastos
+    gastosTotales = 0; // Reinicia el total de gastos
+    presupuestoRestante = presupuestoMensual; // Restaura el presupuesto restante
+    presupuestoRestanteEl.textContent = `$${presupuestoRestante.toFixed(2)}`; // Actualiza la interfaz
+    tablaGastos.innerHTML = ''; // Limpia la tabla de gastos
+    alerta.style.display = "none"; // Oculta cualquier alerta
+});
