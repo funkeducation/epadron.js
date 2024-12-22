@@ -24,7 +24,7 @@ _Este código en JavaScript permite gestionar un presupuesto personal, realizand
 
 * Finalización del Proceso:
     * Un botón permite finalizar la entrada de gastos. Dependiendo de si el usuario se ha excedido o no del presupuesto, se muestra un mensaje de alerta.
-    * Después de finalizar, se deshabilitan los formularios y botones para evitar que el usuario continúe ingresando gastos.
+    * Después de finalizar, se deshabilitan los formularios y botones para evitar que el usuario continúe ingresando gastos, o borrar gastos ya ingresados.
 
 * Reinicio del Proceso: Un botón permite recargar la página y reiniciar el proceso desde el principio.
 
