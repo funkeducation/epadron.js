@@ -23,7 +23,7 @@ window.onload = function () {
         nombreUsuario = "Usuario"; // Valor predeterminado si el usuario no ingresa un nombre
     }
     // Actualiza el título de la página con el nombre del usuario
-    document.title = `Gestión de Presupuesto - ${nombreUsuario}`;
+    document.title = `Gestión de Presupuesto de ${nombreUsuario}`;
     // Actualiza el contenido del <h1>
     const tituloPrincipal = document.querySelector('h1'); // Selecciona el título principal
     tituloPrincipal.textContent = `Gestión de Presupuesto de ${nombreUsuario}`;
