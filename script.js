@@ -123,8 +123,6 @@ botonFinalizar.addEventListener('click', function () {
     botonLimpiar.disabled = true; // Deshabilita el botón de "Limpiar todos los gastos"
 });
 
-
-
 // Reiniciar todo el proceso
 botonReiniciar.addEventListener('click', function () {
     location.reload(); // Recarga la página para reiniciar el estado
