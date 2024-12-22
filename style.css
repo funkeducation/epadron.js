@@ -1,3 +1,8 @@
+html {
+    min-width: 430px;
+    scroll-behavior: smooth;
+}
+
 body {
     margin: 0;
     display: flex;
@@ -220,6 +225,10 @@ label {
     max-width: 100%;
 }
 
+#botonRegistrar {
+    width: 50%;
+}
+
 table {
     width: 100%; /* Asegura que la tabla ocupe todo el ancho disponible */
     border-collapse: collapse; /* Elimina espacios entre bordes */
@@ -276,7 +285,7 @@ table td:nth-child(3) {
   }
 
 /* Diseño responsivo Input Presupuesto*/
-@media screen and (max-width: 825px) {
+@media screen and (max-width: 870px) {
     #presupuesto {
       width: 80%;
     }
