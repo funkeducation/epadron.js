@@ -18,7 +18,7 @@ const botonFinalizar = document.getElementById('botonFinalizar'); // Botón para
 
 // Solicitar el nombre del usuario al cargar la página
 window.onload = function () {
-    nombreUsuario = prompt("¡Hola! ¿Cómo te llamas?"); // Solicita el nombre del usuario
+    nombreUsuario = prompt("¡Bienvenido a mi script! ¿Cuál es tu nombre?"); // Solicita el nombre del usuario
     if (!nombreUsuario) {
         nombreUsuario = "Usuario"; // Valor predeterminado si el usuario no ingresa un nombre
     }
@@ -96,13 +96,13 @@ formularioGasto.addEventListener('submit', function (e) {
 botonFinalizar.addEventListener('click', function () {
     // Verificar el estado del presupuesto restante
     if (presupuestoRestante === 0) { // Si el presupuesto restante es exactamente cero
-        alerta.textContent = `${nombreUsuario}, has utilizado todo tu presupuesto. Considera reducir gastos para que puedas ahorrar más dinero.`; // Mensaje informativo
+        alerta.textContent = `${nombreUsuario}, has utilizado todo tu presupuesto. Considera reducir gastos para que puedas ahorrar tu dinero.`; // Mensaje informativo
         alerta.style.display = "block";
     } else if (gastosTotales <= presupuestoMensual) { // Si el usuario no excedió su presupuesto
-        alerta.textContent = `¡Felicidades, ${nombreUsuario}! Has gastado menos de tu presupuesto. ¡Sigue haciéndolo así!`; // Mensaje de felicitación
+        alerta.textContent = `¡Felicidades, ${nombreUsuario}! Quedó un saldo a tu favor que puedes ahorrar e invertir. ¡Sigue así!`; // Mensaje de felicitación
         alerta.style.display = "block";
     } else { // Si el usuario excedió su presupuesto
-        alerta.textContent = `${nombreUsuario}, ¡Deja de gastar dinero que no tienes! Te has excedido del presupuesto.`; // Mensaje de advertencia
+        alerta.textContent = `${nombreUsuario}, no te financies con dinero prestado. Reduce tus gastos y aprende a ahorrar.`; // Mensaje de advertencia
         alerta.style.display = "block";
     }
 
@@ -114,7 +114,15 @@ botonFinalizar.addEventListener('click', function () {
     // Deshabilitar el campo "Monto del gasto"
     const inputMontoGasto = document.getElementById('gasto'); // Obtener el campo de monto del gasto
     inputMontoGasto.disabled = true; // Desactivar el campo de monto del gasto
+
+    // Deshabilitar todos los botones de eliminar
+    const botonesEliminar = document.querySelectorAll('.btn-eliminar'); // Selecciona todos los botones "Eliminar"
+    botonesEliminar.forEach(boton => boton.disabled = true); // Deshabilita cada botón
+
+    // Deshabilitar el botón de limpiar gastos
+    botonLimpiar.disabled = true; // Deshabilita el botón de "Limpiar todos los gastos"
 });
+
 
 
 // Reiniciar todo el proceso
