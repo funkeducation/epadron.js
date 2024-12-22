@@ -12,11 +12,11 @@ _El código JavaScript inicia un simulador de presupuesto personal mensual. Soli
 
 ## Requerimientos 2da Pre-Entrega
 
-* Variables necesarias: Sí, están presentes y bien definidas.
-* Funciones esenciales: Sí, el código cubre las funciones principales del flujo de gestión de presupuesto.
+* Variables necesarias: Las variables cubren lo necesario para manejar el presupuesto y los gastos.
+* Funciones esenciales: Las funciones cubren adecuadamente los requerimientos para la interacción con el usuario (presupuesto y gastos).
 * Objetos JS: Están presentes en forma de objetos simples dentro de listaGastos.
-* Arrays: El array listaGastos está bien implementado.
-* Métodos de búsqueda y filtrado: No están implementados, pero podrían añadirse si se requiere buscar o filtrar los gastos.
+* Arrays: El uso del array listaGastos es adecuado, y se aprovecha para almacenar y filtrar los gastos.
+* Métodos de búsqueda y filtrado: El filtrado de gastos está bien implementado utilizando los métodos adecuados (filter()), y muestra los resultados correctamente.
 
 ## Dirección del Sitio Web
 

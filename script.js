@@ -118,3 +118,58 @@ botonFinalizar.addEventListener('click', function () {
 botonReiniciar.addEventListener('click', function () {
     location.reload(); // Recarga la página para reiniciar el estado
 });
+
+// Función para filtrar gastos por descripción
+function filtrarGastosPorDescripcion(termino) {
+    const tablaResultadosFiltrados = document.getElementById('tablaResultadosFiltrados').getElementsByTagName('tbody')[0];
+    
+    // Filtra los gastos que contienen el término de búsqueda en la descripción (ignorando mayúsculas/minúsculas)
+    const resultados = listaGastos.filter(gasto => gasto.descripcion.toLowerCase().includes(termino.toLowerCase()));
+    
+    // Limpiar la tabla de resultados filtrados
+    tablaResultadosFiltrados.innerHTML = '';
+    
+    // Si no hay resultados, muestra un mensaje
+    if (resultados.length === 0) {
+        const fila = tablaResultadosFiltrados.insertRow();
+        const celda = fila.insertCell();
+        celda.colSpan = 2;
+        celda.textContent = 'No se encontraron gastos con esa descripción.';
+    } else {
+        // Muestra los resultados filtrados en la tabla
+        resultados.forEach(gasto => {
+            const fila = tablaResultadosFiltrados.insertRow();
+            fila.innerHTML = `<td>${gasto.descripcion}</td><td>$${gasto.monto.toFixed(2)}</td>`;
+        });
+    }
+}
+
+// Función para filtrar gastos por monto
+function filtrarGastosPorMonto(minimo, maximo) {
+    const tablaResultadosFiltrados = document.getElementById('tablaResultadosFiltrados').getElementsByTagName('tbody')[0];
+    
+    // Filtra los gastos que estén dentro del rango de monto especificado
+    const resultados = listaGastos.filter(gasto => gasto.monto >= minimo && gasto.monto <= maximo);
+    
+    // Limpiar la tabla de resultados filtrados
+    tablaResultadosFiltrados.innerHTML = '';
+    
+    // Si no hay resultados, muestra un mensaje
+    if (resultados.length === 0) {
+        const fila = tablaResultadosFiltrados.insertRow();
+        const celda = fila.insertCell();
+        celda.colSpan = 2;
+        celda.textContent = 'No se encontraron gastos dentro de ese rango.';
+    } else {
+        // Muestra los resultados filtrados en la tabla
+        resultados.forEach(gasto => {
+            const fila = tablaResultadosFiltrados.insertRow();
+            fila.innerHTML = `<td>${gasto.descripcion}</td><td>$${gasto.monto.toFixed(2)}</td>`;
+        });
+    }
+}
+
+function limpiarResultadosFiltrados() {
+    const tablaResultadosFiltrados = document.getElementById('tablaResultadosFiltrados').getElementsByTagName('tbody')[0];
+    tablaResultadosFiltrados.innerHTML = ''; // Limpia la tabla de resultados filtrados
+}

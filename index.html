@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <div id="contenedorPrincipal" style="display: flex; flex-direction: column; gap: 20px; max-width: 80%; margin: 0 auto;">
+    <div id="contenedorPrincipal">
 
         <div id="contenedor">
             <div id="logo">
@@ -55,6 +55,29 @@
                     </tr>
                 </thead>
                 <tbody id="tablaGastos"></tbody>
+            </table>
+        </div>
+
+        <div id="contenedor">
+            <h2>Filtrado de Resultados</h2>
+            <input type="text" id="buscarDescripcion" style="width: 87%;" placeholder="Buscar por descripción">
+            <button onclick="filtrarGastosPorDescripcion(document.getElementById('buscarDescripcion').value)" style="margin-bottom: 20px; width: 90%;">Buscar</button>
+            <input type="number" id="montoMinimo" style="width: 87%;" placeholder="Monto mínimo" />
+            <input type="number" id="montoMaximo" style="width: 87%;" placeholder="Monto máximo" />
+            <button onclick="filtrarGastosPorMonto(parseFloat(document.getElementById('montoMinimo').value), parseFloat(document.getElementById('montoMaximo').value))" style="margin-bottom: 20px; width: 90%;">Filtrar por monto</button>
+
+            <button onclick="limpiarResultadosFiltrados()" style="margin-top: 20px; width: 200px;">Limpiar resultados</button>
+
+            <table id="tablaResultadosFiltrados">
+                <thead>
+                    <tr>
+                        <th>Descripción</th>
+                        <th>Monto</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Los resultados filtrados se agregarán aquí -->
+                </tbody>
             </table>
         </div>
 
