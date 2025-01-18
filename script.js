@@ -15,19 +15,30 @@ const presupuestoRestanteEl = document.getElementById('presupuestoRestante'); //
 const infoPresupuesto = document.getElementById('infoPresupuesto'); // Contenedor con la información del presupuesto
 const botonReiniciar = document.getElementById('botonReiniciar'); // Botón para reiniciar el proceso
 const botonFinalizar = document.getElementById('botonFinalizar'); // Botón para finalizar la entrada de gastos
+const nombreUsuarioInput = document.getElementById('nombreUsuario'); // Campo de texto para el nombre del usuario
+const botonNombreUsuario = document.getElementById('botonNombreUsuario'); // Botón para enviar el nombre del usuario
 
-// Solicitar el nombre del usuario al cargar la página
-window.onload = function () {
-    nombreUsuario = prompt("¡Bienvenido a mi script! ¿Cuál es tu nombre?"); // Solicita el nombre del usuario
+// Mostrar mensaje de bienvenida y actualizar el nombre del usuario
+botonNombreUsuario.addEventListener('click', function () {
+    nombreUsuario = nombreUsuarioInput.value.trim(); // Obtiene el nombre desde el campo de texto
+
+    // Si no se ingresa un nombre, asigna "Usuario" como valor predeterminado
     if (!nombreUsuario) {
-        nombreUsuario = "Usuario"; // Valor predeterminado si el usuario no ingresa un nombre
+        nombreUsuario = "Usuario";
     }
+
     // Actualiza el título de la página con el nombre del usuario
     document.title = `Gestión de Presupuesto de ${nombreUsuario}`;
-    // Actualiza el contenido del <h1>
-    const tituloPrincipal = document.querySelector('h1'); // Selecciona el título principal
+
+    // Actualiza el contenido del <h1> con el nombre del usuario
+    const tituloPrincipal = document.querySelector('h1');
     tituloPrincipal.textContent = `Gestión de Presupuesto de ${nombreUsuario}`;
-};
+
+    // Oculta el formulario para ingresar el nombre y muestra el formulario de presupuesto
+    document.getElementById('nombreUsuarioContainer').style.display = 'none';
+    formularioPresupuesto.style.display = 'block'; // Muestra el formulario para ingresar el presupuesto
+});
+
 
 // Mostrar mensajes en la tabla de gastos
 function mostrarMensajeEnTabla(descripcion, monto) {
