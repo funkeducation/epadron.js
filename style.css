@@ -295,6 +295,13 @@ table td:nth-child(3) {
     }
   }
 
+  /* Diseño responsivo Input Presupuesto*/
+@media screen and (max-width: 870px) {
+    #nombreUsuario {
+      width: 80%;
+    }
+  }
+
 /* Diseño responsivo Input Presupuesto*/
 @media screen and (max-width: 825px) {
     #descripcionGasto {
