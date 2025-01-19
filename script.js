@@ -116,10 +116,11 @@ function cargarDesdeLocalStorage() {
 
 // Verificar si el botón de finalizar debe estar habilitado
 function verificarEstadoBotonFinalizar() {
+    const botonesDependientesDeGastos = [botonFinalizar, botonReiniciar];
     if (listaGastos.length > 0) {
-        botonFinalizar.disabled = false;
+        botonesDependientesDeGastos.forEach(boton => boton.disabled = false);
     } else {
-        botonFinalizar.disabled = true;
+        botonesDependientesDeGastos.forEach(boton => boton.disabled = true);
     }
 }
 
