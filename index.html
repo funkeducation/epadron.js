@@ -87,16 +87,16 @@
             <h2>Filtrado de Resultados</h2>
 
             <!-- Campo para buscar por descripción -->
-            <input type="text" id="buscarDescripcion" style="width: 87%;" placeholder="Buscar por descripción">
+            <input type="text" id="buscarDescripcion" style="width: 50%;" placeholder="Buscar por descripción">
             <button onclick="filtrarGastosPorDescripcion(document.getElementById('buscarDescripcion').value)"
-                style="margin-bottom: 20px; width: 90%;">Buscar</button>
+                style="margin-bottom: 20px; width: 200px;">Buscar</button>
 
             <!-- Campos para filtrar por rango de monto -->
-            <input type="number" id="montoMinimo" style="width: 87%;" placeholder="Monto mínimo" />
-            <input type="number" id="montoMaximo" style="width: 87%;" placeholder="Monto máximo" />
+            <input type="number" id="montoMinimo" style="width: 50%;" placeholder="Monto mínimo" />
+            <input type="number" id="montoMaximo" style="width: 50%;" placeholder="Monto máximo" />
             <button
                 onclick="filtrarGastosPorMonto(parseFloat(document.getElementById('montoMinimo').value), parseFloat(document.getElementById('montoMaximo').value))"
-                style="margin-bottom: 20px; width: 90%;">Filtrar por monto</button>
+                style="margin-bottom: 20px; width: 200px;">Filtrar por monto</button>
 
             <!-- Botón para limpiar los resultados de búsqueda -->
             <button onclick="limpiarResultadosFiltrados()" style="margin-top: 20px; width: 200px;">Limpiar resultados</button>

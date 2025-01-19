@@ -295,10 +295,31 @@ table td:nth-child(3) {
     }
   }
 
-  /* Diseño responsivo Input Presupuesto*/
+  /* Diseño responsivo Input nombreUsuario*/
 @media screen and (max-width: 870px) {
     #nombreUsuario {
       width: 80%;
+    }
+  }
+
+  /* Diseño responsivo Input buscarDescripcion*/
+  @media screen and (max-width: 870px) {
+    #buscarDescripcion {
+      min-width: 90%;
+    }
+  }
+
+  /* Diseño responsivo Input montoMinimo*/
+  @media screen and (max-width: 870px) {
+    #montoMinimo {
+      min-width: 90%;
+    }
+  }
+
+  /* Diseño responsivo Input montoMaximo*/
+  @media screen and (max-width: 870px) {
+    #montoMaximo {
+      min-width: 90%;
     }
   }
 
