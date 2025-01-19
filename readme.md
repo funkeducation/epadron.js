@@ -24,6 +24,9 @@ _Este repositorio contiene el proyecto **Gestión de Presupuesto Personal**, des
 5. **Persistencia de datos**:
    - Los datos se guardan en el Local Storage para mantener el estado entre sesiones.
 
+6. **Botones dinámicos**:
+   - Los botones "Finalizar Ingreso de Gastos" y "Reiniciar Presupuesto" permanecerán desactivados hasta que se registren gastos, garantizando una experiencia de usuario más clara y acorde al estado actual de los gastos.
+
 ### Interacción con la interfaz:
 - Formulario para establecer el presupuesto inicial.
 - Formulario dinámico para ingresar gastos.
@@ -44,6 +47,7 @@ _Este repositorio contiene el proyecto **Gestión de Presupuesto Personal**, des
    - Cálculo del presupuesto restante.
    - Filtrado de datos basado en descripción y rango de monto.
    - Guardado y recuperación de datos usando Local Storage.
+   - Control dinámico de botones en función de la existencia de gastos registrados.
 3. **Estructuras de Datos**:
    - Uso de objetos para registrar gastos.
    - Arrays para almacenar y procesar listas de gastos.
