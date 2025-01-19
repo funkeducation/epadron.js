@@ -21,6 +21,52 @@ const inputPresupuesto = document.getElementById('presupuesto');
 const nombreUsuarioInput = document.getElementById('nombreUsuario');
 const botonNombreUsuario = document.getElementById('botonNombreUsuario');
 
+// Elementos del mensaje de confirmación para reiniciar presupuesto
+const mensajeReiniciar = document.createElement('div');
+mensajeReiniciar.id = 'confirmacionReiniciar';
+mensajeReiniciar.style.display = 'none';
+mensajeReiniciar.style.textAlign = 'center';
+mensajeReiniciar.style.background = 'rgba(0,0,0,0.8)';
+mensajeReiniciar.style.color = 'white';
+mensajeReiniciar.style.padding = '20px';
+mensajeReiniciar.style.position = 'fixed';
+mensajeReiniciar.style.top = '50%';
+mensajeReiniciar.style.left = '50%';
+mensajeReiniciar.style.transform = 'translate(-50%, -50%)';
+mensajeReiniciar.style.borderRadius = '10px';
+mensajeReiniciar.style.zIndex = '1000';
+mensajeReiniciar.innerHTML = `
+    <p>¿Estás seguro de reiniciar el presupuesto? Perderás toda la información ingresada.</p>
+    <button id="confirmarReiniciar" style="margin: 5px; padding: 10px; background: green; color: white; border: none; border-radius: 5px;">Confirmar</button>
+    <button id="cancelarReiniciar" style="margin: 5px; padding: 10px; background: red; color: white; border: none; border-radius: 5px;">Cancelar</button>
+`;
+document.body.appendChild(mensajeReiniciar);
+const confirmarReiniciar = document.getElementById('confirmarReiniciar');
+const cancelarReiniciar = document.getElementById('cancelarReiniciar');
+
+// Elementos del mensaje de confirmación para finalizar ingreso de gastos
+const mensajeFinalizar = document.createElement('div');
+mensajeFinalizar.id = 'confirmacionFinalizar';
+mensajeFinalizar.style.display = 'none';
+mensajeFinalizar.style.textAlign = 'center';
+mensajeFinalizar.style.background = 'rgba(0,0,0,0.8)';
+mensajeFinalizar.style.color = 'white';
+mensajeFinalizar.style.padding = '20px';
+mensajeFinalizar.style.position = 'fixed';
+mensajeFinalizar.style.top = '50%';
+mensajeFinalizar.style.left = '50%';
+mensajeFinalizar.style.transform = 'translate(-50%, -50%)';
+mensajeFinalizar.style.borderRadius = '10px';
+mensajeFinalizar.style.zIndex = '1000';
+mensajeFinalizar.innerHTML = `
+    <p>¿Estás seguro de finalizar el ingreso de gastos? No podrás registrar más gastos después de esto.</p>
+    <button id="confirmarFinalizar" style="margin: 5px; padding: 10px; background: green; color: white; border: none; border-radius: 5px;">Confirmar</button>
+    <button id="cancelarFinalizar" style="margin: 5px; padding: 10px; background: red; color: white; border: none; border-radius: 5px;">Cancelar</button>
+`;
+document.body.appendChild(mensajeFinalizar);
+const confirmarFinalizar = document.getElementById('confirmarFinalizar');
+const cancelarFinalizar = document.getElementById('cancelarFinalizar');
+
 // Desactivar el botón de finalizar inicialmente
 botonFinalizar.disabled = true;
 
@@ -194,14 +240,29 @@ botonLimpiar.addEventListener('click', function () {
     guardarEnLocalStorage();
 });
 
-// Reiniciar toda la aplicación
+// Mostrar el mensaje de confirmación al reiniciar presupuesto
 botonReiniciar.addEventListener('click', function () {
+    mensajeReiniciar.style.display = 'block';
+});
+
+// Confirmar la acción de reiniciar presupuesto
+confirmarReiniciar.addEventListener('click', function () {
     localStorage.removeItem('gestionPresupuesto');
     location.reload();
 });
 
-// Finalizar la gestión del presupuesto
+// Cancelar la acción de reiniciar presupuesto
+cancelarReiniciar.addEventListener('click', function () {
+    mensajeReiniciar.style.display = 'none';
+});
+
+// Mostrar el mensaje de confirmación al finalizar ingreso de gastos
 botonFinalizar.addEventListener('click', function () {
+    mensajeFinalizar.style.display = 'block';
+});
+
+// Confirmar la finalización de los gastos
+confirmarFinalizar.addEventListener('click', function () {
     if (presupuestoRestante === 0) {
         alerta.textContent = `${nombreUsuario}, has utilizado todo tu presupuesto. Considera reducir gastos para que puedas ahorrar tu dinero.`;
     } else if (gastosTotales <= presupuestoMensual) {
@@ -214,6 +275,12 @@ botonFinalizar.addEventListener('click', function () {
     formularioGasto.querySelectorAll('input, button').forEach(el => el.disabled = true);
     botonFinalizar.disabled = true;
     guardarEnLocalStorage();
+    mensajeFinalizar.style.display = 'none';
+});
+
+// Cancelar la acción de finalizar ingreso de gastos
+cancelarFinalizar.addEventListener('click', function () {
+    mensajeFinalizar.style.display = 'none';
 });
 
 // Mostrar un gasto en la tabla de gastos
