@@ -1,49 +1,81 @@
 # Proyecto JavaScript Coderhouse 63335
 
-_Éste repositorio se ha creado para cargar el proyecto de JavaScript para la comisión #63335 de Coderhouse._
+_Este repositorio contiene el proyecto **Gestión de Presupuesto Personal**, desarrollado como parte de la comisión #63335 del curso de JavaScript en Coderhouse. El objetivo del proyecto es proporcionar una herramienta interactiva para gestionar presupuestos personales y realizar un seguimiento de los gastos._
 
-## Contenido
+## Características
 
-_Este código en JavaScript permite gestionar un presupuesto personal, realizando un seguimiento de los gastos y mostrando la información actualizada en la interfaz. Aquí tienes un resumen de su funcionamiento:_
+### Funcionalidades principales:
+1. **Ingreso de presupuesto inicial**:
+   - Permite al usuario definir un presupuesto inicial.
+   - Personaliza la experiencia con el nombre ingresado.
 
-* Variables Iniciales: Se definen varias variables para almacenar el presupuesto inicial, el presupuesto restante, los gastos totales, y una lista de los gastos registrados.
+2. **Registro de gastos**:
+   - Los usuarios pueden registrar gastos con una descripción y un monto.
+   - Calcula automáticamente el presupuesto restante.
 
-* Elementos del DOM: Se obtiene la referencia de los elementos HTML (formularios, tabla de gastos, alertas, etc.) para interactuar con ellos en el código.
+3. **Filtrado y búsqueda**:
+   - Filtra gastos por descripción o rango de monto.
+   - Muestra los resultados filtrados en una tabla adicional.
 
-* Interacción con el Usuario: Al cargar la página, se solicita el nombre del usuario. El nombre se usa para personalizar la interfaz, incluyendo el título de la página.
+4. **Control y alertas**:
+   - Notifica al usuario si excede su presupuesto.
+   - Permite finalizar la gestión o reiniciar el proceso en cualquier momento.
 
-* Manejo del Presupuesto Inicial:
-    * El usuario ingresa un presupuesto a través de un formulario.
-    * Si el presupuesto es válido, se actualiza la interfaz con el presupuesto inicial y el presupuesto restante, y se muestra el formulario para ingresar gastos.
+5. **Persistencia de datos**:
+   - Los datos se guardan en el Local Storage para mantener el estado entre sesiones.
 
-* Manejo de los Gastos:
-    * El usuario ingresa los gastos mediante un formulario, con una descripción y un monto.
-    * Si los valores son válidos, el gasto se resta del presupuesto restante y se agrega a la lista de gastos.
-    * Si el presupuesto restante es negativo o se ha agotado, se muestra una alerta informando al usuario.
-    * Los gastos se muestran en una tabla.
+### Interacción con la interfaz:
+- Formulario para establecer el presupuesto inicial.
+- Formulario dinámico para ingresar gastos.
+- Tabla para visualizar los gastos registrados y las búsquedas realizadas.
+- Botones para reiniciar presupuesto, limpiar gastos, o finalizar la gestión.
 
-* Finalización del Proceso:
-    * Un botón permite finalizar la entrada de gastos. Dependiendo de si el usuario se ha excedido o no del presupuesto, se muestra un mensaje de alerta.
-    * Después de finalizar, se deshabilitan los formularios y botones para evitar que el usuario continúe ingresando gastos, o borrar gastos ya ingresados.
+## Estructura del Proyecto
 
-* Reinicio del Proceso: Un botón permite recargar la página y reiniciar el proceso desde el principio.
+### Archivos principales:
+- **index.html**: Estructura HTML de la interfaz del usuario.
+- **style.css**: Hoja de estilos para el diseño visual.
+- **script.js**: Lógica principal del proyecto en JavaScript.
 
-* Filtrar Gastos:
-    * Se incluyen funciones para filtrar los gastos por descripción o por monto, y se muestran los resultados filtrados en una nueva tabla.
+### Detalles del código:
+1. **Variables Globales**: Manejan el estado de la aplicación, incluyendo el presupuesto inicial, restante, y la lista de gastos.
+2. **Funciones Esenciales**:
+   - Manejo de eventos para capturar datos del usuario.
+   - Cálculo del presupuesto restante.
+   - Filtrado de datos basado en descripción y rango de monto.
+   - Guardado y recuperación de datos usando Local Storage.
+3. **Estructuras de Datos**:
+   - Uso de objetos para registrar gastos.
+   - Arrays para almacenar y procesar listas de gastos.
+4. **Validación y Alertas**:
+   - Verifica entradas válidas para presupuesto y gastos.
+   - Muestra mensajes personalizados en función del estado del presupuesto.
 
-Este sistema permite que el usuario gestione su presupuesto, registre sus gastos y reciba alertas cuando se acerque o se exceda del límite presupuestario.
+## Uso del Proyecto
+
+### Requisitos
+- Navegador web moderno.
+
+### Pasos:
+1. Clona el repositorio:
+   ```bash
+   git clone https://github.com/funkeducation/epadron.js.git
+   ```
+2. Abre el archivo `index.html` en el navegador.
+3. Ingresa tu nombre y el presupuesto inicial.
+4. Registra tus gastos y utiliza las herramientas de filtrado según sea necesario.
+
+## Requerimientos 3era Pre-Entrega
+
+* El proyecto incluye formularios interactivos que permiten al usuario ingresar datos como presupuesto inicial, descripción de gastos y montos.
+* Los resultados, como el presupuesto restante y la lista de gastos, se notifican dinámicamente mediante elementos HTML actualizados (p.ej., <p>, <table>).
+* Captura eventos como el envío de formularios (submit), clics en botones, y entradas en campos de texto.
+* Procesa datos ingresados por el usuario para calcular el presupuesto restante y manejar la lista de gastos.
+* Modifica el DOM para actualizar dinámicamente los valores de presupuesto y mostrar/ocultar formularios según el estado actual.
 
 ## Autor
 
 * **Edgar Alfonso Padrón Centeno** - *Desarrollador* - [funkeducation](https://github.com/funkeducation)
-
-## Requerimientos 2da Pre-Entrega
-
-* **Variables necesarias:** Las variables cubren lo necesario para manejar el presupuesto y los gastos.
-* **Funciones esenciales:** Las funciones cubren adecuadamente los requerimientos para la interacción con el usuario (presupuesto y gastos).
-* **Objetos JS:** Están presentes en forma de objetos simples dentro de **listaGastos**.
-* **Arrays:** El uso del array **listaGastos** es adecuado, y se aprovecha para almacenar y filtrar los gastos.
-* **Métodos de búsqueda y filtrado:** El filtrado de gastos está bien implementado utilizando los métodos adecuados **(filter())**, y muestra los resultados correctamente.
 
 ## Dirección del Sitio Web
 

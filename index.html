@@ -9,45 +9,61 @@
 </head>
 
 <body>
+    <!-- Contenedor principal para agrupar todo el contenido -->
     <div id="contenedorPrincipal">
 
+        <!-- Contenedor para la sección principal y formularios -->
         <div id="contenedor">
+            <!-- Sección del logo -->
             <div id="logo">
                 <img src="images/logo_top.png" alt="Edgar Padrón">
             </div>
 
+            <!-- Título principal de la página -->
             <h1>Gestión de Presupuesto</h1>
 
+            <!-- Sección para la información del presupuesto -->
             <h2>Información del Presupuesto</h2>
+
+            <!-- Formulario para ingresar el presupuesto inicial y nombre del usuario -->
             <form id="formularioPresupuesto" class="form-presupuesto">
                 <label for="nombreUsuario">Ingresa tu nombre:</label>
                 <input type="text" id="nombreUsuario" placeholder="Tu nombre">
                 <button id="botonNombreUsuario">Aceptar</button>
+
                 <label for="presupuesto">Ingresa tu presupuesto inicial:</label>
                 <input type="number" id="presupuesto" required>
                 <button type="submit">Establecer Presupuesto</button>
             </form>
 
+            <!-- Información dinámica sobre el presupuesto inicial y restante -->
             <div id="infoPresupuesto" style="display: none;">
                 <p id="presupuestoInicial">Presupuesto inicial: $0.00</p>
                 <p>Presupuesto restante: <span id="presupuestoRestante">$0.00</span></p>
             </div>
 
+            <!-- Formulario para registrar un gasto -->
             <form id="formularioGasto" class="form-gasto" style="display: none;">
                 <label for="descripcionGasto">Descripción del gasto:</label>
                 <input type="text" id="descripcionGasto" required>
+
                 <label for="gasto">Monto del gasto:</label>
                 <input type="number" id="gasto" required>
+
                 <button id="botonRegistrar" type="submit">Registrar Gasto</button>
             </form>
 
+            <!-- Mensaje de alerta para mostrar avisos al usuario -->
             <p id="alerta"></p>
+
+            <!-- Botones para acciones principales -->
             <div class="botones-container">
                 <button id="botonReiniciar">Reiniciar Presupuesto</button>
                 <button id="botonFinalizar">Finalizar Ingreso de Gastos</button>
             </div>
         </div>
 
+        <!-- Contenedor para la tabla de gastos registrados -->
         <div id="contenedor" style="margin: 0px auto;">
             <h2>Listado de Gastos</h2>
             <table>
@@ -60,23 +76,31 @@
                 </thead>
                 <tbody id="tablaGastos"></tbody>
             </table>
+
+            <!-- Botón para limpiar la tabla de gastos -->
             <button id="botonLimpiar" style="margin-top: 20px; width: 200px;">Limpiar Gastos</button>
         </div>
 
+        <!-- Contenedor para filtrar y buscar gastos -->
         <div id="contenedor">
             <h2>Filtrado de Resultados</h2>
+
+            <!-- Campo para buscar por descripción -->
             <input type="text" id="buscarDescripcion" style="width: 87%;" placeholder="Buscar por descripción">
             <button onclick="filtrarGastosPorDescripcion(document.getElementById('buscarDescripcion').value)"
                 style="margin-bottom: 20px; width: 90%;">Buscar</button>
+
+            <!-- Campos para filtrar por rango de monto -->
             <input type="number" id="montoMinimo" style="width: 87%;" placeholder="Monto mínimo" />
             <input type="number" id="montoMaximo" style="width: 87%;" placeholder="Monto máximo" />
             <button
                 onclick="filtrarGastosPorMonto(parseFloat(document.getElementById('montoMinimo').value), parseFloat(document.getElementById('montoMaximo').value))"
                 style="margin-bottom: 20px; width: 90%;">Filtrar por monto</button>
 
-            <button onclick="limpiarResultadosFiltrados()" style="margin-top: 20px; width: 200px;">Limpiar
-                resultados</button>
+            <!-- Botón para limpiar los resultados de búsqueda -->
+            <button onclick="limpiarResultadosFiltrados()" style="margin-top: 20px; width: 200px;">Limpiar resultados</button>
 
+            <!-- Tabla para mostrar los resultados filtrados -->
             <table id="tablaResultadosFiltrados">
                 <thead>
                     <tr>
@@ -90,10 +114,12 @@
             </table>
         </div>
 
+        <!-- Espaciador para agregar margen al final de la página -->
         <div id="espaciador" style="height: 20px;"></div>
 
     </div>
 
+    <!-- Script principal de la aplicación -->
     <script src="script.js"></script>
 </body>
 
