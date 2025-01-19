@@ -68,7 +68,7 @@ _Este repositorio contiene el proyecto **Gestión de Presupuesto Personal**, des
 ## Requerimientos 3era Pre-Entrega
 
 * El proyecto incluye formularios interactivos que permiten al usuario ingresar datos como presupuesto inicial, descripción de gastos y montos.
-* Los resultados, como el presupuesto restante y la lista de gastos, se notifican dinámicamente mediante elementos HTML actualizados (p.ej., <p>, <table>).
+* Los resultados, como el presupuesto restante y la lista de gastos, se notifican dinámicamente mediante elementos HTML actualizados (p.ej., "p", "table").
 * Captura eventos como el envío de formularios (submit), clics en botones, y entradas en campos de texto.
 * Procesa datos ingresados por el usuario para calcular el presupuesto restante y manejar la lista de gastos.
 * Modifica el DOM para actualizar dinámicamente los valores de presupuesto y mostrar/ocultar formularios según el estado actual.
