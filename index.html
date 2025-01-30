@@ -7,6 +7,8 @@
     <title>Gestión de Presupuesto</title>
     <!-- Enlace a la hoja de estilos externa -->
     <link rel='stylesheet' type='text/css' media='screen' href='style.css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
 </head>
 
 <body>
@@ -17,7 +19,7 @@
         <div id="contenedor">
             <!-- Sección del logo -->
             <div id="logo">
-                <img src="images/logo_top.png" alt="Edgar Padrón">
+                <a href="https://edgarpadron.me" target="_blank"><img src="images/logo_top.png" alt="Edgar Padrón"></a>
             </div>
 
             <!-- Título principal de la página -->
@@ -72,6 +74,7 @@
                     <tr>
                         <th>Descripción</th>
                         <th>Monto</th>
+                        <th>Fecha</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -107,6 +110,7 @@
                     <tr>
                         <th>Descripción</th>
                         <th>Monto</th>
+                        <th>Fecha</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -122,6 +126,9 @@
 
     <!-- Script principal de la aplicación -->
     <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.10/dayjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.6.2/fuse.min.js"></script>
+
 </body>
 
 </html>

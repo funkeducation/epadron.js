@@ -248,12 +248,17 @@ table th:nth-child(1),
 table td:nth-child(1), 
 table th:nth-child(2), 
 table td:nth-child(2) {
-    width: 40%; /* Cada columna "Descripción" y "Monto" ocupa el 40% */
+    width: 30%; /* Cada columna "Descripción" y "Monto" ocupa el 30% */
 }
 
 table th:nth-child(3), 
 table td:nth-child(3) {
-    width: 15%; /* La columna "Acciones" ocupa el 20% */
+    width: 25%; /* La columna "Fecha" ocupa el 25% */
+}
+
+table th:nth-child(4), 
+table td:nth-child(4) {
+    width: 15%; /* La columna "Acciones" ocupa el 15% */
 }
 
 /* Estilo base para los botones .btn-eliminar */

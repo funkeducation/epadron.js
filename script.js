@@ -126,9 +126,18 @@ function verificarEstadoBotonFinalizar() {
 
 // Filtrar gastos por descripción
 function filtrarGastosPorDescripcion(termino) {
-    const resultados = listaGastos.filter(gasto => gasto.descripcion.toLowerCase().includes(termino.toLowerCase()));
+    if (!termino.trim()) {
+        tablaResultadosFiltrados.innerHTML = "<tr><td colspan='3'>Ingrese un término de búsqueda</td></tr>";
+        return;
+    }
+
+    const opciones = { keys: ["descripcion"], threshold: 0.3 };
+    const fuse = new Fuse(listaGastos, opciones);
+    const resultados = fuse.search(termino).map(result => result.item);
+
     actualizarTablaResultados(resultados);
 }
+
 
 // Filtrar gastos por rango de monto
 function filtrarGastosPorMonto(minimo, maximo) {
@@ -152,9 +161,7 @@ function actualizarTablaResultados(resultados) {
     tablaResultadosFiltrados.innerHTML = '';
 
     if (resultados.length === 0) {
-        const filaVacia = document.createElement('tr');
-        filaVacia.innerHTML = '<td colspan="2">No se encontraron resultados.</td>';
-        tablaResultadosFiltrados.appendChild(filaVacia);
+        tablaResultadosFiltrados.innerHTML = "<tr><td colspan='3'>No se encontraron resultados.</td></tr>";
         return;
     }
 
@@ -163,10 +170,12 @@ function actualizarTablaResultados(resultados) {
         fila.innerHTML = `
             <td>${gasto.descripcion}</td>
             <td>$${gasto.monto.toFixed(2)}</td>
+            <td>${gasto.fecha}</td>
         `;
         tablaResultadosFiltrados.appendChild(fila);
     });
 }
+
 
 // Eventos para la interacción con el usuario
 // Guardar el nombre del usuario
@@ -203,6 +212,7 @@ formularioGasto.addEventListener('submit', function (e) {
     e.preventDefault();
     const descripcion = document.getElementById('descripcionGasto').value.trim();
     const gasto = parseFloat(document.getElementById('gasto').value);
+    const fecha = dayjs().format('DD/MM/YYYY HH:mm'); // Fecha con formato dd/mm/yyyy hh:mm
     if (!descripcion || isNaN(gasto) || gasto <= 0) {
         alerta.textContent = `${nombreUsuario}, por favor, ingresa una descripción y un gasto válido.`;
         alerta.style.display = "block";
@@ -210,7 +220,7 @@ formularioGasto.addEventListener('submit', function (e) {
     }
     presupuestoRestante -= gasto;
     gastosTotales += gasto;
-    listaGastos.push({ descripcion, monto: gasto });
+    listaGastos.push({ descripcion, monto: gasto, fecha });
     if (presupuestoRestante < 0) {
         alerta.textContent = `¡${nombreUsuario}, te has excedido por $${Math.abs(presupuestoRestante).toFixed(2)}!`;
         alerta.style.display = "block";
@@ -220,7 +230,7 @@ formularioGasto.addEventListener('submit', function (e) {
     } else {
         alerta.style.display = "none";
     }
-    mostrarMensajeEnTabla(descripcion, gasto);
+    mostrarMensajeEnTabla(descripcion, gasto, fecha);
     presupuestoRestanteEl.textContent = `$${presupuestoRestante.toFixed(2)}`;
     document.getElementById('descripcionGasto').value = '';
     document.getElementById('gasto').value = '';
@@ -264,12 +274,16 @@ botonFinalizar.addEventListener('click', function () {
 
 // Confirmar la finalización de los gastos
 confirmarFinalizar.addEventListener('click', function () {
+    const contenedorPrincipal = document.getElementById('contenedorPrincipal');
+
     if (presupuestoRestante === 0) {
         alerta.textContent = `${nombreUsuario}, has utilizado todo tu presupuesto. Considera reducir gastos para que puedas ahorrar tu dinero.`;
     } else if (gastosTotales <= presupuestoMensual) {
         alerta.textContent = `¡Felicidades, ${nombreUsuario}! Quedó un saldo a tu favor que puedes ahorrar e invertir. ¡Sigue así!`;
+        contenedorPrincipal.classList.add('animate__animated', 'animate__flash'); // Animación positiva
     } else {
         alerta.textContent = `${nombreUsuario}, no te financies con dinero prestado. Reduce tus gastos y aprende a ahorrar.`;
+        contenedorPrincipal.classList.add('animate__animated', 'animate__shakeX'); // Animación negativa
     }
     alerta.style.display = "block";
     formularioPresupuesto.style.display = "none";
@@ -277,6 +291,11 @@ confirmarFinalizar.addEventListener('click', function () {
     botonFinalizar.disabled = true;
     guardarEnLocalStorage();
     mensajeFinalizar.style.display = 'none';
+
+    // Remover la animación después de que termine
+    setTimeout(() => {
+        contenedorPrincipal.classList.remove('animate__animated', 'animate__bounce', 'animate__shakeX');
+    }, 1500);
 });
 
 // Cancelar la acción de finalizar ingreso de gastos
@@ -285,11 +304,12 @@ cancelarFinalizar.addEventListener('click', function () {
 });
 
 // Mostrar un gasto en la tabla de gastos
-function mostrarMensajeEnTabla(descripcion, monto) {
+function mostrarMensajeEnTabla(descripcion, monto, fecha) {
     const fila = document.createElement('tr');
     fila.innerHTML = `
         <td>${descripcion}</td>
         <td>$${monto.toFixed(2)}</td>
+        <td>${fecha}</td>
         <td><button class="btn-eliminar">Eliminar</button></td>
     `;
     fila.querySelector('.btn-eliminar').addEventListener('click', function () {
