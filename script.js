@@ -116,7 +116,7 @@ function cargarDesdeLocalStorage() {
 
 // Verificar si el botón de finalizar debe estar habilitado
 function verificarEstadoBotonFinalizar() {
-    const botonesDependientesDeGastos = [botonFinalizar, botonReiniciar];
+    const botonesDependientesDeGastos = [botonFinalizar];
     if (listaGastos.length > 0) {
         botonesDependientesDeGastos.forEach(boton => boton.disabled = false);
     } else {
@@ -203,6 +203,10 @@ formularioPresupuesto.addEventListener('submit', function (e) {
     formularioPresupuesto.style.display = "none";
     formularioGasto.style.display = "block";
     infoPresupuesto.style.display = "block";
+
+    // Mostrar el botón para cargar gastos desde JSON
+    document.getElementById('botonCargarGastos').style.display = "block";
+
     verificarEstadoBotonFinalizar();
     guardarEnLocalStorage();
 });
@@ -276,14 +280,15 @@ botonFinalizar.addEventListener('click', function () {
 confirmarFinalizar.addEventListener('click', function () {
     const contenedorPrincipal = document.getElementById('contenedorPrincipal');
 
-    if (presupuestoRestante === 0) {
+    if (presupuestoRestante < 0) {
+        alerta.textContent = `${nombreUsuario}, te has excedido del presupuesto por $${Math.abs(presupuestoRestante).toFixed(2)}. Considera reducir gastos para evitar deudas.`;
+        contenedorPrincipal.classList.add('animate__animated', 'animate__shakeX'); // Animación de error
+    } else if (presupuestoRestante === 0) {
         alerta.textContent = `${nombreUsuario}, has utilizado todo tu presupuesto. Considera reducir gastos para que puedas ahorrar tu dinero.`;
-    } else if (gastosTotales <= presupuestoMensual) {
-        alerta.textContent = `¡Felicidades, ${nombreUsuario}! Quedó un saldo a tu favor que puedes ahorrar e invertir. ¡Sigue así!`;
-        contenedorPrincipal.classList.add('animate__animated', 'animate__flash'); // Animación positiva
+        contenedorPrincipal.classList.add('animate__animated', 'animate__flash'); // Animación neutral
     } else {
-        alerta.textContent = `${nombreUsuario}, no te financies con dinero prestado. Reduce tus gastos y aprende a ahorrar.`;
-        contenedorPrincipal.classList.add('animate__animated', 'animate__shakeX'); // Animación negativa
+        alerta.textContent = `¡Felicidades, ${nombreUsuario}! Te quedó un saldo de $${presupuestoRestante.toFixed(2)} que puedes ahorrar e invertir. ¡Sigue así!`;
+        contenedorPrincipal.classList.add('animate__animated', 'animate__bounce'); // Animación positiva
     }
     alerta.style.display = "block";
     formularioPresupuesto.style.display = "none";
@@ -331,4 +336,34 @@ function mostrarMensajeEnTabla(descripcion, monto, fecha) {
 document.addEventListener('DOMContentLoaded', function () {
     cargarDesdeLocalStorage();
     verificarEstadoBotonFinalizar();
+});
+
+async function cargarGastosDesdeJSON() {
+    try {
+        const respuesta = await fetch('data/gastos.json'); // Cargar JSON local
+        if (!respuesta.ok) {
+            throw new Error('Error al cargar el JSON');
+        }
+        const datos = await respuesta.json();
+
+        datos.forEach(gasto => {
+            listaGastos.push(gasto); // Agregar gastos al array global
+            presupuestoRestante -= gasto.monto; // Restar del presupuesto
+            mostrarMensajeEnTabla(gasto.descripcion, gasto.monto, gasto.fecha);
+        });
+
+        // Actualizar visualización
+        presupuestoRestanteEl.textContent = `$${presupuestoRestante.toFixed(2)}`;
+        verificarEstadoBotonFinalizar();
+        guardarEnLocalStorage(); // Guardar los cambios en localStorage
+
+        console.log("Gastos cargados correctamente desde JSON");
+    } catch (error) {
+        console.error('Error al cargar los gastos:', error);
+    }
+}
+
+document.getElementById('botonCargarGastos').addEventListener('click', function () {
+    cargarGastosDesdeJSON();
+    this.style.display = "none"; // Oculta el botón después de la carga
 });

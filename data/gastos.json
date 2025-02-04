@@ -1,0 +1,27 @@
+[
+    {
+      "descripcion": "Supermercado",
+      "monto": 150,
+      "fecha": "02/02/2024 14:00"
+    },
+    {
+      "descripcion": "Transporte",
+      "monto": 200,
+      "fecha": "02/02/2024 08:30"
+    },
+    {
+      "descripcion": "Ropa",
+      "monto": 250,
+      "fecha": "02/02/2024 17:30"
+    },
+    {
+      "descripcion": "Arriendo",
+      "monto": 350,
+      "fecha": "03/02/2024 10:25"
+    },
+    {
+      "descripcion": "Automóvil",
+      "monto": 160,
+      "fecha": "03/02/2024 09:15"
+    }
+  ]
