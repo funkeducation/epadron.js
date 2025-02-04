@@ -32,8 +32,8 @@ _Este repositorio contiene el proyecto **Gestión de Presupuesto Personal**, des
 7. **Botones dinámicos**:
    - El botón "Finalizar Ingreso de Gastos" permanecerá desactivado hasta que se registren gastos, garantizando una experiencia de usuario más clara y acorde al estado actual de los gastos.
 
-   ### Tecnologías y Conceptos Utilizados:
-   _El proyecto implementa varios aspectos clave de JavaScript:_
+### Tecnologías y Conceptos Utilizados:
+_El proyecto implementa varios aspectos clave de JavaScript:_
 
 1. **Objetos y Arrays. Métodos de Arrays.**
    - Uso de objetos para estructurar los datos de los gastos.
