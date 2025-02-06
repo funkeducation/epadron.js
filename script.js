@@ -211,36 +211,47 @@ formularioPresupuesto.addEventListener('submit', function (e) {
     guardarEnLocalStorage();
 });
 
-// Agregar un nuevo gasto
+// Obtener referencia al botón de cargar gastos desde JSON
+const botonCargarGastos = document.getElementById('botonCargarGastos');
+
+// Agregar un nuevo gasto manualmente
 formularioGasto.addEventListener('submit', function (e) {
     e.preventDefault();
+    
     const descripcion = document.getElementById('descripcionGasto').value.trim();
     const gasto = parseFloat(document.getElementById('gasto').value);
     const fecha = dayjs().format('DD/MM/YYYY HH:mm'); // Fecha con formato dd/mm/yyyy hh:mm
+
     if (!descripcion || isNaN(gasto) || gasto <= 0) {
         alerta.textContent = `${nombreUsuario}, por favor, ingresa una descripción y un gasto válido.`;
         alerta.style.display = "block";
         return;
     }
+
     presupuestoRestante -= gasto;
     gastosTotales += gasto;
     listaGastos.push({ descripcion, monto: gasto, fecha });
+
     if (presupuestoRestante < 0) {
         alerta.textContent = `¡${nombreUsuario}, te has excedido por $${Math.abs(presupuestoRestante).toFixed(2)}!`;
-        alerta.style.display = "block";
-    } else if (presupuestoRestante === 0) {
-        alerta.textContent = `¡${nombreUsuario}, has utilizado todo tu presupuesto!`;
         alerta.style.display = "block";
     } else {
         alerta.style.display = "none";
     }
+
     mostrarMensajeEnTabla(descripcion, gasto, fecha);
     presupuestoRestanteEl.textContent = `$${presupuestoRestante.toFixed(2)}`;
+
+    // Desactivar el botón de cargar gastos desde JSON
+    botonCargarGastos.style.display = "none";
+
     document.getElementById('descripcionGasto').value = '';
     document.getElementById('gasto').value = '';
+    
     verificarEstadoBotonFinalizar();
     guardarEnLocalStorage();
 });
+
 
 // Limpiar la lista de gastos y reiniciar presupuesto
 botonLimpiar.addEventListener('click', function () {
@@ -363,7 +374,40 @@ async function cargarGastosDesdeJSON() {
     }
 }
 
+// Modificación del script para agregar confirmación antes de cargar los gastos desde JSON
 document.getElementById('botonCargarGastos').addEventListener('click', function () {
-    cargarGastosDesdeJSON();
-    this.style.display = "none"; // Oculta el botón después de la carga
+    if (listaGastos.length === 0) {
+        // Crear mensaje de confirmación
+        const mensajeCargarJSON = document.createElement('div');
+        mensajeCargarJSON.id = 'confirmacionCargarJSON';
+        mensajeCargarJSON.style.display = 'block';
+        mensajeCargarJSON.style.textAlign = 'center';
+        mensajeCargarJSON.style.background = 'rgba(0,0,0,0.8)';
+        mensajeCargarJSON.style.color = 'white';
+        mensajeCargarJSON.style.padding = '20px';
+        mensajeCargarJSON.style.position = 'fixed';
+        mensajeCargarJSON.style.top = '50%';
+        mensajeCargarJSON.style.left = '50%';
+        mensajeCargarJSON.style.transform = 'translate(-50%, -50%)';
+        mensajeCargarJSON.style.borderRadius = '10px';
+        mensajeCargarJSON.style.zIndex = '1000';
+        mensajeCargarJSON.innerHTML = `
+            <p>Solo puedes agregar los datos una sola vez. ¿Estás seguro de continuar?</p>
+            <button id="confirmarCargarJSON" style="margin: 5px; padding: 10px; background: green; color: white; border: none; border-radius: 5px;">Confirmar</button>
+            <button id="cancelarCargarJSON" style="margin: 5px; padding: 10px; background: red; color: white; border: none; border-radius: 5px;">Cancelar</button>
+        `;
+        document.body.appendChild(mensajeCargarJSON);
+    }
+});
+
+// Evento para confirmar la carga de gastos desde JSON
+document.body.addEventListener('click', function (event) {
+    if (event.target.id === 'confirmarCargarJSON') {
+        cargarGastosDesdeJSON();
+        document.getElementById('botonCargarGastos').style.display = "none";
+        document.getElementById('confirmacionCargarJSON').remove();
+    }
+    if (event.target.id === 'cancelarCargarJSON') {
+        document.getElementById('confirmacionCargarJSON').remove();
+    }
 });
