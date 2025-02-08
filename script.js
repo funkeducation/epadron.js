@@ -417,12 +417,13 @@ document.addEventListener("DOMContentLoaded", function () {
     const seccionFiltro = document.getElementById("seccionFiltro");
 
     toggleFiltro.addEventListener("click", function () {
+        const icono = toggleFiltro.querySelector("i");
         if (seccionFiltro.style.display === "none") {
             seccionFiltro.style.display = "block";
-            toggleFiltro.innerHTML = "Filtrado de Resultados ▲";
+            icono.classList.replace("fa-chevron-down", "fa-chevron-up"); // Cambia la flecha
         } else {
             seccionFiltro.style.display = "none";
-            toggleFiltro.innerHTML = "Filtrado de Resultados ▼";
+            icono.classList.replace("fa-chevron-up", "fa-chevron-down"); // Cambia la flecha
         }
     });
 });
