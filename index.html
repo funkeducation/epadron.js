@@ -83,43 +83,47 @@
 
             <!-- Botón para limpiar la tabla de gastos -->
             <div class="botones-container-2">
-            <button id="botonLimpiar" style="margin-top: 20px;">Limpiar Gastos</button>
-            <button id="botonCargarGastos" style="margin-top: 20px; display: none;">Cargar Gastos desde JSON</button>
+                <button id="botonLimpiar" style="margin-top: 20px;">Limpiar Gastos</button>
+                <button id="botonCargarGastos" style="margin-top: 20px; display: none;">Cargar Gastos desde
+                    JSON</button>
             </div>
         </div>
 
         <!-- Contenedor para filtrar y buscar gastos -->
         <div id="contenedor">
-            <h2>Filtrado de Resultados</h2>
+            <h2 id="toggleFiltro">Filtrado de Resultados ▼</h2>
+            <div id="seccionFiltro" style="display: none;">
+                <!-- Campo para buscar por descripción -->
+                <input type="text" id="buscarDescripcion" style="width: 500px;" placeholder="Buscar por descripción">
+                <button onclick="filtrarGastosPorDescripcion(document.getElementById('buscarDescripcion').value); document.getElementById('buscarDescripcion').value='';" style="margin-bottom: 20px; width: 200px;">
+    Buscar
+</button>
 
-            <!-- Campo para buscar por descripción -->
-            <input type="text" id="buscarDescripcion" style="width: 50%;" placeholder="Buscar por descripción">
-            <button onclick="filtrarGastosPorDescripcion(document.getElementById('buscarDescripcion').value)"
-                style="margin-bottom: 20px; width: 200px;">Buscar</button>
+                <!-- Campos para filtrar por rango de monto -->
+                <div style="display: inline-block"><input type="number" id="montoMinimo" style="width: 235px;" placeholder="Monto mínimo" />
+                <input type="number" id="montoMaximo" style="width: 235px;" placeholder="Monto máximo" />
+                <button
+                    onclick="filtrarGastosPorMonto(parseFloat(document.getElementById('montoMinimo').value), parseFloat(document.getElementById('montoMaximo').value))"
+                    style="margin-bottom: 20px; width: 200px;">Filtrar por monto</button></div>
 
-            <!-- Campos para filtrar por rango de monto -->
-            <input type="number" id="montoMinimo" style="width: 50%;" placeholder="Monto mínimo" />
-            <input type="number" id="montoMaximo" style="width: 50%;" placeholder="Monto máximo" />
-            <button
-                onclick="filtrarGastosPorMonto(parseFloat(document.getElementById('montoMinimo').value), parseFloat(document.getElementById('montoMaximo').value))"
-                style="margin-bottom: 20px; width: 200px;">Filtrar por monto</button>
+                <!-- Botón para limpiar los resultados de búsqueda -->
+                <button onclick="limpiarResultadosFiltrados()" style="margin-top: 20px; width: 200px; display: block">Limpiar
+                    resultados</button>
 
-            <!-- Botón para limpiar los resultados de búsqueda -->
-            <button onclick="limpiarResultadosFiltrados()" style="margin-top: 20px; width: 200px;">Limpiar resultados</button>
-
-            <!-- Tabla para mostrar los resultados filtrados -->
-            <table id="tablaResultadosFiltrados">
-                <thead>
-                    <tr>
-                        <th>Descripción</th>
-                        <th>Monto</th>
-                        <th>Fecha</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Los resultados filtrados se agregarán aquí -->
-                </tbody>
-            </table>
+                <!-- Tabla para mostrar los resultados filtrados -->
+                <table id="tablaResultadosFiltrados">
+                    <thead>
+                        <tr>
+                            <th>Descripción</th>
+                            <th>Monto</th>
+                            <th>Fecha</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Los resultados filtrados se agregarán aquí -->
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <!-- Espaciador para agregar margen al final de la página -->

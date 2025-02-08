@@ -289,6 +289,26 @@ table td:nth-child(4) {
     border-color: #aaa; /* Borde más oscuro */
 }
 
+#toggleFiltro {
+    cursor: pointer;
+    text-align: center;
+    padding: 10px 20px; /* Ajusta el padding para darle espacio interno */
+    background-color: white;
+    color: black;
+    border-radius: 5px;
+    display: inline-block; /* Permite que el ancho se ajuste al contenido */
+    margin: 0 auto; /* Centra horizontalmente */
+    white-space: nowrap; /* Evita saltos de línea dentro del botón */
+}
+
+#toggleFiltro:hover {
+    background-color: whitesmoke;
+}
+
+#seccionFiltro {
+    padding-top: 20px;
+}
+
 /* Diseño responsivo Contenedor Principal*/
 @media screen and (max-width: 825px) {
     #contenedorPrincipal {

@@ -411,3 +411,63 @@ document.body.addEventListener('click', function (event) {
         document.getElementById('confirmacionCargarJSON').remove();
     }
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    const toggleFiltro = document.getElementById("toggleFiltro");
+    const seccionFiltro = document.getElementById("seccionFiltro");
+
+    toggleFiltro.addEventListener("click", function () {
+        if (seccionFiltro.style.display === "none") {
+            seccionFiltro.style.display = "block";
+            toggleFiltro.innerHTML = "Filtrado de Resultados ▲";
+        } else {
+            seccionFiltro.style.display = "none";
+            toggleFiltro.innerHTML = "Filtrado de Resultados ▼";
+        }
+    });
+});
+
+function filtrarGastosPorMonto(minimo, maximo) {
+    if (isNaN(minimo) || isNaN(maximo)) {
+        alerta.textContent = 'Por favor, ingresa valores válidos para el rango de monto.';
+        alerta.style.display = 'block';
+        return;
+    }
+
+    const resultados = listaGastos.filter(gasto => gasto.monto >= minimo && gasto.monto <= maximo);
+    actualizarTablaResultados(resultados);
+
+    // Limpiar los campos después de la búsqueda
+    document.getElementById("montoMinimo").value = "";
+    document.getElementById("montoMaximo").value = "";
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    // Detectar Enter en el campo de búsqueda por descripción
+    document.getElementById("buscarDescripcion").addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+            event.preventDefault(); // Evita que el formulario se envíe por defecto
+            filtrarGastosPorDescripcion(this.value);
+            this.value = ""; // Limpiar el campo después de la búsqueda
+        }
+    });
+
+    // Detectar Enter en los campos de filtrado por monto
+    document.getElementById("montoMaximo").addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            let min = parseFloat(document.getElementById("montoMinimo").value);
+            let max = parseFloat(document.getElementById("montoMaximo").value);
+            filtrarGastosPorMonto(min, max);
+        }
+    });
+
+    document.getElementById("montoMinimo").addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            let min = parseFloat(document.getElementById("montoMinimo").value);
+            let max = parseFloat(document.getElementById("montoMaximo").value);
+            filtrarGastosPorMonto(min, max);
+        }
+    });
+});
