@@ -9,8 +9,11 @@
     <link rel='stylesheet' type='text/css' media='screen' href='style.css'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-
-
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:family=Exo:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
@@ -25,10 +28,12 @@
             </div>
 
             <!-- Título principal de la página -->
-            <h1>Gestión de Presupuesto</h1>
+            <h1 style="margin-bottom: 10px;">GESTIÓN DE PRESUPUESTO</h1>
+        </div>
 
+        <div id="contenedor" style="margin: 0px auto;">
             <!-- Sección para la información del presupuesto -->
-            <h2>Información del Presupuesto</h2>
+            <h2 style="margin-top: 10px;">Información del Presupuesto</h2>
 
             <!-- Formulario para ingresar el presupuesto inicial y nombre del usuario -->
             <form id="formularioPresupuesto" class="form-presupuesto">
@@ -43,8 +48,10 @@
 
             <!-- Información dinámica sobre el presupuesto inicial y restante -->
             <div id="infoPresupuesto" style="display: none;">
-                <p id="presupuestoInicial">Presupuesto inicial: $0.00</p>
-                <p>Presupuesto restante: <span id="presupuestoRestante">$0.00</span></p>
+                <p style="font-size: 1.3rem; color: #636363;">Presupuesto inicial: <span
+                        id="presupuestoInicial">$0.00</span></p>
+                <p style="font-size: 1.3rem; color: #636363;">Presupuesto restante: <span
+                        id="presupuestoRestante">$0.00</span></p>
             </div>
 
             <!-- Formulario para registrar un gasto -->
@@ -70,8 +77,8 @@
 
         <!-- Contenedor para la tabla de gastos registrados -->
         <div id="contenedor" style="margin: 0px auto;">
-            <h2>Listado de Gastos</h2>
-            <table>
+            <h2 style="margin-top: 10px;">Listado de Gastos</h2>
+            <table style="border-radius: 10px;">
                 <thead>
                     <tr>
                         <th>Descripción</th>
@@ -92,24 +99,30 @@
         </div>
 
         <!-- Contenedor para filtrar y buscar gastos -->
-        <div id="contenedor">
-            <h2 id="toggleFiltro">Filtrado de Resultados <i class="fa-solid fa-chevron-down" style="color: #45a049;"></i></h2>
+        <div id="contenedor" style="margin: 0px auto;">
+            <h2 id="toggleFiltro">Filtrado de Resultados <i class="fa-solid fa-chevron-down"
+                    style="color: #45a049;"></i></h2>
             <div id="seccionFiltro" style="display: none;">
                 <!-- Campo para buscar por descripción -->
                 <input type="text" id="buscarDescripcion" style="width: 500px;" placeholder="Buscar por descripción">
-                <button onclick="filtrarGastosPorDescripcion(document.getElementById('buscarDescripcion').value); document.getElementById('buscarDescripcion').value='';" style="margin-bottom: 20px; width: 200px;">
-    Buscar
-</button>
+                <button
+                    onclick="filtrarGastosPorDescripcion(document.getElementById('buscarDescripcion').value); document.getElementById('buscarDescripcion').value='';"
+                    style="margin-bottom: 5px; width: 152px;">
+                    Buscar
+                </button>
 
                 <!-- Campos para filtrar por rango de monto -->
-                <div style="display: inline-block"><input type="number" id="montoMinimo" style="width: 235px;" placeholder="Monto mínimo" />
-                <input type="number" id="montoMaximo" style="width: 235px;" placeholder="Monto máximo" />
-                <button
-                    onclick="filtrarGastosPorMonto(parseFloat(document.getElementById('montoMinimo').value), parseFloat(document.getElementById('montoMaximo').value))"
-                    style="margin-bottom: 20px; width: 200px;">Filtrar por monto</button></div>
+                <div id="filtroRango" style="display: inline-block"><input type="number" id="montoMinimo"
+                        style="width: 235px;" placeholder="Monto mínimo" />
+                    <input type="number" id="montoMaximo" style="width: 235px;" placeholder="Monto máximo" />
+                    <button
+                        onclick="filtrarGastosPorMonto(parseFloat(document.getElementById('montoMinimo').value), parseFloat(document.getElementById('montoMaximo').value))"
+                        style="margin-bottom: 20px; width: 152px;">Filtrar por monto</button>
+                </div>
 
                 <!-- Botón para limpiar los resultados de búsqueda -->
-                <button onclick="limpiarResultadosFiltrados()" style="margin-top: 20px; width: 200px; display: block">Limpiar
+                <button onclick="limpiarResultadosFiltrados()"
+                    style="margin-top: 20px; width: 164px; display: block">Limpiar
                     resultados</button>
 
                 <!-- Tabla para mostrar los resultados filtrados -->

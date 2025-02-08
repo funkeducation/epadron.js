@@ -35,6 +35,7 @@ mensajeReiniciar.style.left = '50%';
 mensajeReiniciar.style.transform = 'translate(-50%, -50%)';
 mensajeReiniciar.style.borderRadius = '10px';
 mensajeReiniciar.style.zIndex = '1000';
+mensajeReiniciar.style.fontSize = '1.3rem';
 mensajeReiniciar.innerHTML = `
     <p>¿Estás seguro de reiniciar el presupuesto? Perderás toda la información ingresada.</p>
     <button id="confirmarReiniciar" style="margin: 5px; padding: 10px; background: green; color: white; border: none; border-radius: 5px;">Confirmar</button>
@@ -58,6 +59,7 @@ mensajeFinalizar.style.left = '50%';
 mensajeFinalizar.style.transform = 'translate(-50%, -50%)';
 mensajeFinalizar.style.borderRadius = '10px';
 mensajeFinalizar.style.zIndex = '1000';
+mensajeFinalizar.style.fontSize = '1.3rem';
 mensajeFinalizar.innerHTML = `
     <p>¿Estás seguro de finalizar el ingreso de gastos? No podrás registrar más gastos después de esto.</p>
     <button id="confirmarFinalizar" style="margin: 5px; padding: 10px; background: green; color: white; border: none; border-radius: 5px;">Confirmar</button>
@@ -95,15 +97,15 @@ function cargarDesdeLocalStorage() {
         // Restaurar interfaz con datos cargados
         if (nombreUsuario) {
             document.title = `Gestión de Presupuesto de ${nombreUsuario}`;
-            document.querySelector('h1').textContent = `Gestión de Presupuesto de ${nombreUsuario}`;
+            document.querySelector('h1').textContent = `GESTIÓN DE PRESUPUESTO DE ${nombreUsuario}`;
         }
 
         if (presupuestoMensual > 0) {
-            presupuestoInicialEl.textContent = `Presupuesto inicial de ${nombreUsuario}: $${presupuestoMensual.toFixed(2)}`;
+            presupuestoInicialEl.textContent = `$${presupuestoMensual.toFixed(2)}`;
             presupuestoRestanteEl.textContent = `$${presupuestoRestante.toFixed(2)}`;
             infoPresupuesto.style.display = "block";
             formularioGasto.style.display = "block";
-            listaGastos.forEach(gasto => mostrarMensajeEnTabla(gasto.descripcion, gasto.monto));
+            listaGastos.forEach(gasto => mostrarMensajeEnTabla(gasto.descripcion, gasto.monto, gasto.fecha));
             verificarEstadoBotonFinalizar();
         }
 
@@ -138,19 +140,6 @@ function filtrarGastosPorDescripcion(termino) {
     actualizarTablaResultados(resultados);
 }
 
-
-// Filtrar gastos por rango de monto
-function filtrarGastosPorMonto(minimo, maximo) {
-    if (isNaN(minimo) || isNaN(maximo)) {
-        alerta.textContent = 'Por favor, ingresa valores válidos para el rango de monto.';
-        alerta.style.display = 'block';
-        return;
-    }
-
-    const resultados = listaGastos.filter(gasto => gasto.monto >= minimo && gasto.monto <= maximo);
-    actualizarTablaResultados(resultados);
-}
-
 // Limpiar resultados de la tabla de gastos filtrados
 function limpiarResultadosFiltrados() {
     tablaResultadosFiltrados.innerHTML = '';
@@ -176,14 +165,45 @@ function actualizarTablaResultados(resultados) {
     });
 }
 
-
-// Eventos para la interacción con el usuario
-// Guardar el nombre del usuario
-botonNombreUsuario.addEventListener('click', function () {
+// Evento para capturar el nombre del usuario y actualizar el texto del presupuesto
+botonNombreUsuario.addEventListener('click', function (e) {
+    e.preventDefault();
     nombreUsuario = nombreUsuarioInput.value.trim();
-    if (!nombreUsuario) nombreUsuario = "Usuario";
-    document.title = `Gestión de Presupuesto de ${nombreUsuario}`;
-    document.querySelector('h1').textContent = `Gestión de Presupuesto de ${nombreUsuario}`;
+    if (!nombreUsuario) {
+        nombreUsuario = "Usuario"; // Valor predeterminado si no ingresa nombre
+    }
+
+    // Actualizar el título y el presupuesto inicial con el nombre del usuario
+    document.title = `Gestión de Presupuesto de ${nombreUsuario.charAt(0).toUpperCase() + nombreUsuario.slice(1).toLowerCase()}`;
+    document.querySelector('h1').textContent = `GESTIÓN DE PRESUPUESTO DE ${nombreUsuario.toUpperCase()}`;
+    document.getElementById('presupuestoInicial').parentNode.innerHTML =
+        `<p style="font-size: 1.3rem; color: #636363;">Presupuesto inicial de ${nombreUsuario.charAt(0).toUpperCase() + nombreUsuario.slice(1).toLowerCase()}: <span id="presupuestoInicial">$0.00</span></p>`;
+    guardarEnLocalStorage();
+});
+
+// Establecer el presupuesto inicial y actualizar la visualización
+formularioPresupuesto.addEventListener('submit', function (e) {
+    e.preventDefault();
+    presupuestoMensual = parseFloat(inputPresupuesto.value);
+
+    if (isNaN(presupuestoMensual) || presupuestoMensual <= 0) {
+        alerta.textContent = `${nombreUsuario}, por favor, ingresa un presupuesto válido.`;
+        alerta.style.display = "block";
+        return;
+    }
+
+    // Actualizar el texto con el nombre del usuario
+    document.getElementById('presupuestoInicial').parentNode.innerHTML =
+        `<p style="font-size: 1.3rem; color: #636363;">Presupuesto inicial de ${nombreUsuario}: <span id="presupuestoInicial">$${presupuestoMensual.toFixed(2)}</span></p>`;
+
+    presupuestoRestante = presupuestoMensual;
+    presupuestoRestanteEl.textContent = `$${presupuestoRestante.toFixed(2)}`;
+
+    alerta.style.display = "none";
+    formularioPresupuesto.style.display = "none";
+    formularioGasto.style.display = "block";
+    infoPresupuesto.style.display = "block";
+
     guardarEnLocalStorage();
 });
 
@@ -217,7 +237,7 @@ const botonCargarGastos = document.getElementById('botonCargarGastos');
 // Agregar un nuevo gasto manualmente
 formularioGasto.addEventListener('submit', function (e) {
     e.preventDefault();
-    
+
     const descripcion = document.getElementById('descripcionGasto').value.trim();
     const gasto = parseFloat(document.getElementById('gasto').value);
     const fecha = dayjs().format('DD/MM/YYYY HH:mm'); // Fecha con formato dd/mm/yyyy hh:mm
@@ -247,7 +267,7 @@ formularioGasto.addEventListener('submit', function (e) {
 
     document.getElementById('descripcionGasto').value = '';
     document.getElementById('gasto').value = '';
-    
+
     verificarEstadoBotonFinalizar();
     guardarEnLocalStorage();
 });
@@ -319,15 +339,17 @@ cancelarFinalizar.addEventListener('click', function () {
     mensajeFinalizar.style.display = 'none';
 });
 
-// Mostrar un gasto en la tabla de gastos
 function mostrarMensajeEnTabla(descripcion, monto, fecha) {
     const fila = document.createElement('tr');
     fila.innerHTML = `
         <td>${descripcion}</td>
         <td>$${monto.toFixed(2)}</td>
         <td>${fecha}</td>
-        <td><button class="btn-eliminar">Eliminar</button></td>
+        <td style="text-align: center; vertical-align: middle;">
+            <button class="btn-eliminar">Eliminar</button>
+        </td>
     `;
+
     fila.querySelector('.btn-eliminar').addEventListener('click', function () {
         const index = listaGastos.findIndex(gasto => gasto.descripcion === descripcion && gasto.monto === monto);
         if (index !== -1) {
@@ -340,8 +362,10 @@ function mostrarMensajeEnTabla(descripcion, monto, fecha) {
         }
         fila.remove();
     });
+
     tablaGastos.appendChild(fila);
 }
+
 
 // Cargar datos al iniciar
 document.addEventListener('DOMContentLoaded', function () {
@@ -391,6 +415,7 @@ document.getElementById('botonCargarGastos').addEventListener('click', function 
         mensajeCargarJSON.style.transform = 'translate(-50%, -50%)';
         mensajeCargarJSON.style.borderRadius = '10px';
         mensajeCargarJSON.style.zIndex = '1000';
+        mensajeCargarJSON.style.fontSize = '1.3rem';
         mensajeCargarJSON.innerHTML = `
             <p>Solo puedes agregar los datos una sola vez. ¿Estás seguro de continuar?</p>
             <button id="confirmarCargarJSON" style="margin: 5px; padding: 10px; background: green; color: white; border: none; border-radius: 5px;">Confirmar</button>
@@ -430,7 +455,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function filtrarGastosPorMonto(minimo, maximo) {
     if (isNaN(minimo) || isNaN(maximo)) {
-        alerta.textContent = 'Por favor, ingresa valores válidos para el rango de monto.';
+        tablaResultadosFiltrados.innerHTML = "<tr><td colspan='3'>Por favor, ingresa valores válidos para el rango de monto.</td></tr>";
         alerta.style.display = 'block';
         return;
     }
@@ -471,4 +496,19 @@ document.addEventListener("DOMContentLoaded", function () {
             filtrarGastosPorMonto(min, max);
         }
     });
+});
+
+// Permitir que el botón "Establecer Presupuesto" se active con Enter
+nombreUsuarioInput.addEventListener("keypress", function (event) {
+    if (event.key === "Enter") {
+        event.preventDefault(); // Evita el envío del formulario predeterminado
+        botonNombreUsuario.click(); // Simula el clic en el botón
+    }
+});
+
+inputPresupuesto.addEventListener("keypress", function (event) {
+    if (event.key === "Enter") {
+        event.preventDefault(); // Evita que el formulario se recargue
+        formularioPresupuesto.dispatchEvent(new Event("submit")); // Dispara el evento de envío
+    }
 });
