@@ -179,6 +179,8 @@ botonNombreUsuario.addEventListener('click', function (e) {
     document.getElementById('presupuestoInicial').parentNode.innerHTML =
         `<p style="font-size: 1.3rem; color: #636363;">Presupuesto inicial de ${nombreUsuario.charAt(0).toUpperCase() + nombreUsuario.slice(1).toLowerCase()}: <span id="presupuestoInicial">$0.00</span></p>`;
     guardarEnLocalStorage();
+    // Mueve el cursor automáticamente al campo de presupuesto
+    inputPresupuesto.focus();
 });
 
 // Establecer el presupuesto inicial y actualizar la visualización
@@ -511,4 +513,16 @@ inputPresupuesto.addEventListener("keypress", function (event) {
         event.preventDefault(); // Evita que el formulario se recargue
         formularioPresupuesto.dispatchEvent(new Event("submit")); // Dispara el evento de envío
     }
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    const montoMinimoInput = document.getElementById("montoMinimo");
+    const montoMaximoInput = document.getElementById("montoMaximo");
+
+    montoMinimoInput.addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+            event.preventDefault(); // Evita que el formulario se envíe
+            montoMaximoInput.focus(); // Mueve el foco al campo de Monto Máximo
+        }
+    });
 });
