@@ -64,6 +64,18 @@ body {
     height: auto;
 }
 
+#logo_responsive {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 35px;
+}
+
+#logo_responsive img {
+    margin-top: 20px;
+    width: 100%;
+    height: auto;
+}
+
 #botonNombreUsuario {
     margin-bottom: 15px;
 }
@@ -372,10 +384,23 @@ table td:nth-child(4) {
     }
   }
 
-/* Diseño responsivo Logo Contenedor*/
+/* Diseño responsivo Logo*/
 @media screen and (max-width: 825px) {
-    #logo img {
-      width: 80%;
+    #logo {
+      display: none;
+    }
+  }
+
+  /* Diseño responsivo Logo*/
+@media screen and (min-width: 826px) {
+    #logo_responsive {
+      display: none;
+    }
+  }
+
+  @media screen and (max-width: 826px) {
+    h1 {
+      margin-top: 0;
     }
   }
 
