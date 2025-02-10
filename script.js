@@ -323,10 +323,20 @@ confirmarFinalizar.addEventListener('click', function () {
         alerta.textContent = `¡Felicidades, ${nombreUsuario}! Te quedó un saldo de $${presupuestoRestante.toFixed(2)} que puedes ahorrar e invertir. ¡Sigue así!`;
         contenedorPrincipal.classList.add('animate__animated', 'animate__bounce'); // Animación positiva
     }
+    
     alerta.style.display = "block";
     formularioPresupuesto.style.display = "none";
     formularioGasto.querySelectorAll('input, button').forEach(el => el.disabled = true);
     botonFinalizar.disabled = true;
+    botonLimpiar.disabled = true; // Deshabilitar el botón de limpiar gastos
+    
+    // Deshabilitar los botones "Eliminar" dentro de la tabla de gastos
+    document.querySelectorAll('.btn-eliminar').forEach(btn => {
+        btn.disabled = true;
+        btn.style.backgroundColor = "#ccc"; // Cambiar color para indicar deshabilitación
+        btn.style.cursor = "not-allowed";
+    });
+
     guardarEnLocalStorage();
     mensajeFinalizar.style.display = 'none';
 
@@ -335,6 +345,7 @@ confirmarFinalizar.addEventListener('click', function () {
         contenedorPrincipal.classList.remove('animate__animated', 'animate__bounce', 'animate__shakeX');
     }, 1500);
 });
+
 
 // Cancelar la acción de finalizar ingreso de gastos
 cancelarFinalizar.addEventListener('click', function () {
