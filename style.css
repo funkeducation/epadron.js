@@ -1,3 +1,17 @@
+@font-face {
+    font-family: 'Barlow Condensed';
+    src: url('/fonts/BarlowCondensed.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Exo';
+    src: url('/fonts/Exo.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 html {
     min-width: 430px;
     scroll-behavior: smooth;
