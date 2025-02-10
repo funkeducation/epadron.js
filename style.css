@@ -139,6 +139,7 @@ button, .form-gasto button, .form-presupuesto button, #botonReiniciar #botonFina
     background-color: #4372f5; /* Color azul */
     font-family: 'Exo', sans-serif !important;
     font-size: 1rem;
+    font-weight: normal;
 }
 
 button:hover, .form-gasto button:hover, .form-presupuesto button:hover {
