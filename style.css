@@ -392,6 +392,21 @@ table td:nth-child(4) {
     padding-top: 20px;
 }
 
+#contenedorGrafico {
+    text-align: center;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#graficoGastos {
+    width: 50% !important;
+    height: auto !important;
+    display: block;
+    margin: 0 auto;
+}
+
 /* Diseño responsivo Contenedor Principal*/
 @media screen and (max-width: 825px) {
     #contenedorPrincipal {
@@ -454,17 +469,8 @@ table td:nth-child(4) {
     }
   }
 
-  #contenedorGrafico {
-    text-align: center;
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#graficoGastos {
-    width: 50% !important;
-    height: auto !important;
-    display: block;
-    margin: 0 auto;
-}
+  @media screen and (max-width: 1094px) {
+    #graficoGastos {
+      min-width: 90% !important;
+    }
+  }
