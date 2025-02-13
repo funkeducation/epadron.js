@@ -49,7 +49,7 @@
             <!-- Formulario para ingresar el presupuesto inicial y nombre del usuario -->
             <form id="formularioPresupuesto" class="form-presupuesto">
                 <label for="nombreUsuario">Ingresa tu nombre:</label>
-                <input type="text" id="nombreUsuario" placeholder="Tu nombre">
+                <input type="text" id="nombreUsuario" placeholder="Tu nombre" autocomplete="on">
                 <button id="botonNombreUsuario">Aceptar</button>
 
                 <label for="presupuesto">Ingresa tu presupuesto inicial:</label>
@@ -68,7 +68,7 @@
             <!-- Formulario para registrar un gasto -->
             <form id="formularioGasto" class="form-gasto" style="display: none;">
                 <label for="descripcionGasto">Descripción del gasto:</label>
-                <input type="text" id="descripcionGasto" required>
+                <input type="text" id="descripcionGasto" required autocomplete="on">
 
                 <label for="gasto">Monto del gasto:</label>
                 <input type="number" id="gasto" required>
@@ -107,6 +107,12 @@
                 <button id="botonCargarGastos" style="margin-top: 20px; display: none;">Cargar Gastos desde
                     JSON</button>
             </div>
+
+            <div id="contenedorGrafico" style="display: none; text-align: center; margin-top: 20px;">
+                <h2>Resumen de Gastos</h2>
+                <canvas id="graficoGastos"></canvas>
+            </div>
+            
         </div>
 
         <!-- Contenedor para filtrar y buscar gastos -->
@@ -156,6 +162,8 @@
     </div>
 
     <!-- Script principal de la aplicación -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
     <script src="script.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.10/dayjs.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.6.2/fuse.min.js"></script>

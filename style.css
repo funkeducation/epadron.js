@@ -453,3 +453,18 @@ table td:nth-child(4) {
       max-width: 90%;
     }
   }
+
+  #contenedorGrafico {
+    text-align: center;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#graficoGastos {
+    width: 50% !important;
+    height: auto !important;
+    display: block;
+    margin: 0 auto;
+}

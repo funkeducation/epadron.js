@@ -126,6 +126,74 @@ function verificarEstadoBotonFinalizar() {
     }
 }
 
+function generarGraficoGastos() {
+    if (listaGastos.length === 0) {
+        return;
+    }
+
+    // Mostrar el contenedor del gráfico
+    document.getElementById('contenedorGrafico').style.display = 'block';
+
+    // Obtener los datos de gastos
+    const etiquetas = listaGastos.map(gasto => gasto.descripcion);
+    const datos = listaGastos.map(gasto => gasto.monto);
+
+    // Obtener el canvas
+    const ctx = document.getElementById('graficoGastos').getContext('2d');
+
+    // Destruir gráfico previo si existe (para evitar superposiciones)
+    if (window.miGrafico) {
+        window.miGrafico.destroy();
+    }
+
+    // Crear el gráfico con Chart.js y el plugin Datalabels
+    window.miGrafico = new Chart(ctx, {
+        type: 'pie', // Tipo de gráfico
+        data: {
+            labels: etiquetas,
+            datasets: [{
+                data: datos,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(255, 206, 86, 0.5)',
+                    'rgba(75, 192, 192, 0.5)',
+                    'rgba(153, 102, 255, 0.5)',
+                    'rgba(255, 159, 64, 0.5)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: false // Ocultar la leyenda
+                },
+                datalabels: {
+                    color: 'black', // Color del texto
+                    font: {
+                        weight: 'bold',
+                        size: 14
+                    },
+                    formatter: (value, context) => {
+                        return `${context.chart.data.labels[context.dataIndex]}\n$${value.toFixed(2)}`;
+                    }
+                }
+            }
+        },
+        plugins: [ChartDataLabels] // Activar el plugin
+    });
+}
+
 // Filtrar gastos por descripción
 function filtrarGastosPorDescripcion(termino) {
     if (!termino.trim()) {
@@ -338,6 +406,7 @@ confirmarFinalizar.addEventListener('click', function () {
     });
 
     guardarEnLocalStorage();
+    generarGraficoGastos();
     mensajeFinalizar.style.display = 'none';
 
     // Remover la animación después de que termine
