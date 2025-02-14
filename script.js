@@ -126,6 +126,25 @@ function verificarEstadoBotonFinalizar() {
     }
 }
 
+// Función para generar colores primarios sin repetir
+function generarColoresPrimarios(opacidad, cantidad) {
+    const coloresBase = [
+        `rgba(255, 99, 132, ${opacidad})`, // Rojo
+        `rgba(54, 162, 235, ${opacidad})`, // Azul
+        `rgba(255, 206, 86, ${opacidad})`, // Amarillo
+        `rgba(75, 192, 192, ${opacidad})`, // Verde agua
+        `rgba(153, 102, 255, ${opacidad})`, // Morado
+        `rgba(255, 159, 64, ${opacidad})`  // Naranja
+    ];
+    
+    let colores = [];
+    for (let i = 0; i < cantidad; i++) {
+        colores.push(coloresBase[i % coloresBase.length]);
+    }
+    return colores;
+}
+
+// Generar gráfico de gastos con condiciones especiales
 function generarGraficoGastos() {
     if (listaGastos.length === 0) {
         return;
@@ -137,6 +156,22 @@ function generarGraficoGastos() {
     // Obtener los datos de gastos
     const etiquetas = listaGastos.map(gasto => gasto.descripcion);
     const datos = listaGastos.map(gasto => gasto.monto);
+
+    let colores;
+    if (presupuestoRestante > 0) {
+        // Si hay saldo positivo, incluir un color destacado y colores tenues para los gastos
+        colores = generarColoresPrimarios(0.3, listaGastos.length);
+        colores.push('rgba(0, 255, 0, 0.7)'); // Verde intenso para el saldo restante
+        etiquetas.push('Saldo restante');
+        datos.push(presupuestoRestante);
+    } else if (presupuestoRestante < 0) {
+        // Si el usuario se excedió, todos los colores serán tonos de rojo
+        const maxGasto = Math.max(...datos);
+        colores = datos.map(monto => `rgba(255, 0, 0, ${0.3 + (monto / maxGasto) * 0.7})`);
+    } else {
+        // Si el presupuesto está completamente gastado, generar colores primarios sin repetir
+        colores = generarColoresPrimarios(0.5, listaGastos.length);
+    }
 
     // Obtener el canvas
     const ctx = document.getElementById('graficoGastos').getContext('2d');
@@ -153,22 +188,7 @@ function generarGraficoGastos() {
             labels: etiquetas,
             datasets: [{
                 data: datos,
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.5)',
-                    'rgba(54, 162, 235, 0.5)',
-                    'rgba(255, 206, 86, 0.5)',
-                    'rgba(75, 192, 192, 0.5)',
-                    'rgba(153, 102, 255, 0.5)',
-                    'rgba(255, 159, 64, 0.5)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
+                backgroundColor: colores,
                 borderWidth: 1
             }]
         },
@@ -185,7 +205,8 @@ function generarGraficoGastos() {
                         size: 14
                     },
                     formatter: (value, context) => {
-                        return `${context.chart.data.labels[context.dataIndex]}\n$${value.toFixed(2)}`;
+                        return `${context.chart.data.labels[context.dataIndex]}
+$${value.toFixed(2)}`;
                     }
                 }
             }
