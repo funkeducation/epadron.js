@@ -153,37 +153,41 @@ function generarGraficoGastos() {
     // Mostrar el contenedor del gráfico
     document.getElementById('contenedorGrafico').style.display = 'block';
 
-    // Obtener los datos de gastos
-    const etiquetas = listaGastos.map(gasto => gasto.descripcion);
-    const datos = listaGastos.map(gasto => gasto.monto);
+    // Unificar los gastos con nombres repetidos
+    let gastosUnificados = {};
+    listaGastos.forEach(gasto => {
+        if (gastosUnificados[gasto.descripcion]) {
+            gastosUnificados[gasto.descripcion] += gasto.monto;
+        } else {
+            gastosUnificados[gasto.descripcion] = gasto.monto;
+        }
+    });
+
+    // Extraer etiquetas y datos para el gráfico
+    const etiquetas = Object.keys(gastosUnificados);
+    const datos = Object.values(gastosUnificados);
 
     let colores;
     if (presupuestoRestante > 0) {
-        // Si hay saldo positivo, incluir un color destacado y colores tenues para los gastos
-        colores = generarColoresPrimarios(0.3, listaGastos.length);
-        colores.push('rgba(0, 255, 0, 0.7)'); // Verde intenso para el saldo restante
-        etiquetas.push('Saldo restante');
+        colores = generarColoresPrimarios(0.3, etiquetas.length);
+        colores.push('rgba(0, 255, 0, 0.7)'); // Verde para saldo restante
+        etiquetas.push('Saldo Restante');
         datos.push(presupuestoRestante);
-    } else if (presupuestoRestante < 0) {
-        // Si el usuario se excedió, todos los colores serán tonos de rojo
-        const maxGasto = Math.max(...datos);
-        colores = datos.map(monto => `rgba(255, 0, 0, ${0.3 + (monto / maxGasto) * 0.7})`);
     } else {
-        // Si el presupuesto está completamente gastado, generar colores primarios sin repetir
-        colores = generarColoresPrimarios(0.5, listaGastos.length);
+        colores = generarColoresPrimarios(0.5, etiquetas.length);
     }
 
     // Obtener el canvas
     const ctx = document.getElementById('graficoGastos').getContext('2d');
 
-    // Destruir gráfico previo si existe (para evitar superposiciones)
+    // Destruir gráfico previo si existe
     if (window.miGrafico) {
         window.miGrafico.destroy();
     }
 
-    // Crear el gráfico con Chart.js y el plugin Datalabels
+    // Crear el gráfico con datos unificados
     window.miGrafico = new Chart(ctx, {
-        type: 'pie', // Tipo de gráfico
+        type: 'pie',
         data: {
             labels: etiquetas,
             datasets: [{
@@ -195,23 +199,17 @@ function generarGraficoGastos() {
         options: {
             responsive: true,
             plugins: {
-                legend: {
-                    display: false // Ocultar la leyenda
-                },
+                legend: { display: false },
                 datalabels: {
-                    color: 'black', // Color del texto
-                    font: {
-                        weight: 'bold',
-                        size: 14
-                    },
+                    color: 'black',
+                    font: { weight: 'bold', size: 14 },
                     formatter: (value, context) => {
-                        return `${context.chart.data.labels[context.dataIndex]}
-$${value.toFixed(2)}`;
+                        return `${context.chart.data.labels[context.dataIndex]}: $${value.toFixed(2)}`;
                     }
                 }
             }
         },
-        plugins: [ChartDataLabels] // Activar el plugin
+        plugins: [ChartDataLabels]
     });
 }
 
